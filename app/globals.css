@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", ui-monospace, Consolas, monospace;
+}
+
+html,
+body {
+  background: #0a0e14;
+  color: #e6edf3;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Subtle scrollbars */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: #26344a;
+  border-radius: 4px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: #33455f;
+}
+
+@layer components {
+  .card {
+    @apply bg-bg-card border border-border rounded-2xl;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-medium
+           transition-colors disabled:opacity-40 disabled:cursor-not-allowed select-none;
+  }
+  .btn-primary {
+    @apply btn bg-accent text-black hover:bg-accent-soft;
+  }
+  .btn-ghost {
+    @apply btn bg-bg-hover text-gray-200 hover:bg-[#243248] border border-border;
+  }
+  .input {
+    @apply w-full bg-bg-soft border border-border rounded-xl px-3 py-2 text-sm text-gray-100
+           outline-none focus:border-accent transition-colors placeholder:text-gray-600;
+  }
+  .label {
+    @apply text-xs font-medium text-gray-400 mb-1 block;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium;
+  }
+}
+
+.marquee-track {
+  display: inline-flex;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.no-marquee-anim {
+  animation-play-state: paused;
+}
