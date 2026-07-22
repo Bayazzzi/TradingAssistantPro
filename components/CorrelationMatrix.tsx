@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useI18n } from "@/lib/i18n";
+import InfoHint from "@/components/InfoHint";
 
 interface CorrData {
   labels: string[];
@@ -102,6 +103,7 @@ export default function CorrelationMatrix() {
           </div>
         </div>
       )}
+      <InfoHint items={[t("hint.corr.1")]} />
     </section>
   );
 }

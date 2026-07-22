@@ -15,11 +15,21 @@ any device, and needs no installation. Interface available in **Russian and Engl
 
 ### Features
 
+The dashboard is organized into tabs — **Market · Calendar · Calculators · Analysis ·
+Journal** — so each view stays focused, and every tool carries a collapsible "what is
+this?" explainer.
+
 - **Trading Sessions** — live local clocks for Sydney, Tokyo, London and New York with
   open/closed/weekend status, countdown to the next boundary, a 24-hour UTC timeline and
   automatic detection of the high-liquidity **London × New York overlap**.
 - **Live Market Ticker** — scrolling quotes for FX majors, gold, silver, oil, BTC/ETH and
   major indices, proxied server-side from Yahoo Finance.
+- **Market Overview** — a table of multi-timeframe performance (1D/1W/1M/YTD), ATR-based
+  volatility and a 30-day sparkline per instrument.
+- **Macro Barometer** — the gauges that set risk sentiment: Dollar Index, US 10Y yield,
+  VIX, crypto Fear & Greed and BTC dominance.
+- **COT positioning** — how large speculators are positioned in the major futures (CFTC
+  weekly data) with the week-over-week change in net.
 - **Economic Calendar** — this week's events with impact levels, forecast and previous,
   filterable by impact and today/week, from the ForexFactory JSON feed.
 - **Calculators** — position size, risk:reward (with breakeven win-rate) and compounding.
@@ -77,11 +87,21 @@ The original Windows desktop version (customtkinter) is preserved under
 
 ### Возможности
 
+Дашборд разбит на вкладки — **Рынок · Календарь · Калькуляторы · Анализ · Журнал** —
+чтобы каждый экран был сфокусированным, и у каждого инструмента есть сворачиваемое
+пояснение «что это?».
+
 - **Торговые сессии** — живые локальные часы Сиднея, Токио, Лондона и Нью-Йорка со
   статусами открыто/закрыто/выходные, таймером до следующего события, 24-часовым
   UTC-таймлайном и авто-детектом окна высокой ликвидности **Лондон × Нью-Йорк**.
 - **Бегущая строка котировок** — FX-мажоры, золото, серебро, нефть, BTC/ETH и основные
   индексы через серверный прокси Yahoo Finance.
+- **Обзор рынка** — таблица изменения по таймфреймам (1D/1W/1M/YTD), волатильность на
+  базе ATR и мини-график за 30 дней по каждому инструменту.
+- **Макро-барометр** — индикаторы риск-сентимента: индекс доллара, доходность US 10Y,
+  VIX, крипто-индекс страха/жадности и доминация BTC.
+- **COT-позиционирование** — как позиционируются крупные спекулянты в основных фьючерсах
+  (недельные данные CFTC) с изменением нетто-позиции за неделю.
 - **Экономический календарь** — события недели с уровнем важности, прогнозом и предыдущим
   значением, фильтры по важности и сегодня/неделя (фид ForexFactory).
 - **Калькуляторы** — размер позиции, риск:прибыль (с безубыточным винрейтом) и сложный

@@ -156,6 +156,116 @@ const DICT: Record<string, Entry> = {
   // Calendar event link
   "cal.searchTitle": { ru: "Искать это событие", en: "Search this event" },
 
+  // Market overview
+  "ov.title": { ru: "Обзор рынка", en: "Market Overview" },
+  "ov.subtitle": {
+    ru: "Изменение по таймфреймам и волатильность (ATR за 14 дней, % от цены)",
+    en: "Multi-timeframe performance and volatility (14-day ATR, % of price)",
+  },
+  "ov.instrument": { ru: "Инструмент", en: "Instrument" },
+  "ov.price": { ru: "Цена", en: "Price" },
+  "ov.vol": { ru: "Волат.", en: "Vol" },
+  "ov.trend": { ru: "30д", en: "30d" },
+  "ov.loading": { ru: "Загрузка обзора рынка…", en: "Loading market overview…" },
+  "ov.error": { ru: "Данные обзора недоступны.", en: "Overview data unavailable." },
+  "ov.volHint": {
+    ru: "ATR — средний дневной ход. Выше % = сильнее движения, шире нужен стоп.",
+    en: "ATR is the average daily move. Higher % = bigger swings, wider stops needed.",
+  },
+
+  // Macro barometer
+  "macro.title": { ru: "Макро-барометр", en: "Macro Barometer" },
+  "macro.subtitle": {
+    ru: "Ключевые индикаторы риск-сентимента, двигающие все рынки",
+    en: "Key risk-sentiment gauges that move every market",
+  },
+  "macro.dxy": { ru: "Индекс доллара", en: "Dollar Index" },
+  "macro.us10y": { ru: "Доходность US 10Y", en: "US 10Y Yield" },
+  "macro.vix": { ru: "VIX (страх)", en: "VIX (fear)" },
+  "macro.fearGreed": { ru: "Страх/жадность крипты", en: "Crypto Fear & Greed" },
+  "macro.btcDom": { ru: "Доминация BTC", en: "BTC Dominance" },
+  "macro.loading": { ru: "Загрузка макро-данных…", en: "Loading macro data…" },
+  "macro.error": { ru: "Макро-данные недоступны.", en: "Macro data unavailable." },
+  "macro.fg.extremeFear": { ru: "Крайний страх", en: "Extreme Fear" },
+  "macro.fg.fear": { ru: "Страх", en: "Fear" },
+  "macro.fg.neutral": { ru: "Нейтрально", en: "Neutral" },
+  "macro.fg.greed": { ru: "Жадность", en: "Greed" },
+  "macro.fg.extremeGreed": { ru: "Крайняя жадность", en: "Extreme Greed" },
+
+  // COT positioning
+  "cot.title": { ru: "COT — позиции крупных игроков", en: "COT — Large Speculators" },
+  "cot.subtitle": {
+    ru: "Чистые позиции некоммерческих трейдеров (фьючерсы CFTC) и изменение за неделю",
+    en: "Non-commercial net positioning (CFTC futures) with the week-over-week change",
+  },
+  "cot.loading": { ru: "Загрузка данных COT…", en: "Loading COT data…" },
+  "cot.error": { ru: "Данные COT недоступны.", en: "COT data unavailable." },
+  "cot.net": { ru: "Нетто", en: "Net" },
+  "cot.wow": { ru: "за неделю", en: "w/w" },
+  "cot.long": { ru: "Лонг", en: "Long" },
+  "cot.short": { ru: "Шорт", en: "Short" },
+  "cot.reportDate": { ru: "Отчёт от", en: "Report date" },
+  "cot.bullish": { ru: "Быки", en: "Bullish" },
+  "cot.bearish": { ru: "Медведи", en: "Bearish" },
+
+  // Navigation
+  "nav.market": { ru: "Рынок", en: "Market" },
+  "nav.calendar": { ru: "Календарь", en: "Calendar" },
+  "nav.calc": { ru: "Калькуляторы", en: "Calculators" },
+  "nav.analysis": { ru: "Анализ", en: "Analysis" },
+  "nav.journal": { ru: "Журнал", en: "Journal" },
+
+  // Info hints (collapsible explainers)
+  "hint.what": { ru: "Что это и что умеет?", en: "What is this?" },
+  "hint.calc.1": {
+    ru: "Размер позиции — считает объём в лотах по балансу, риску в % и стоп-лоссу для форекса, металлов, крипты и индексов.",
+    en: "Position size — computes lot size from your balance, risk % and stop-loss for FX, metals, crypto and indices.",
+  },
+  "hint.calc.2": {
+    ru: "Риск : Прибыль — соотношение R:R и минимальный винрейт, при котором сделки безубыточны.",
+    en: "Risk : Reward — the R:R ratio and the minimum win-rate at which the setup breaks even.",
+  },
+  "hint.calc.3": {
+    ru: "Сложный процент — прогноз роста депозита при повторяющейся доходности на сделку.",
+    en: "Compounding — projects account growth from a repeated per-trade return.",
+  },
+  "hint.ov.1": {
+    ru: "Изменение цены за день / неделю / месяц / с начала года — видно, что в тренде, а что откатывает.",
+    en: "Price change over day / week / month / year-to-date — see what's trending and what's pulling back.",
+  },
+  "hint.ov.2": {
+    ru: "Волат. (ATR) — средний дневной ход в % от цены. Помогает выбрать адекватный размер стопа.",
+    en: "Vol (ATR) — the average daily move as % of price. Helps you pick a sensible stop size.",
+  },
+  "hint.ov.3": {
+    ru: "Мини-график (30д) — форма движения за последние ~40 дней.",
+    en: "Sparkline (30d) — the shape of the move over the last ~40 days.",
+  },
+  "hint.macro.1": {
+    ru: "DXY, доходность US 10Y и VIX — барометры силы доллара и аппетита к риску.",
+    en: "DXY, US 10Y yield and VIX — barometers of dollar strength and risk appetite.",
+  },
+  "hint.macro.2": {
+    ru: "Индекс страха/жадности и доминация BTC — настроения крипторынка.",
+    en: "Fear & Greed and BTC dominance — the mood of the crypto market.",
+  },
+  "hint.corr.1": {
+    ru: "Значения близко к +1 — пары ходят вместе (двойной риск), близко к −1 — в противофазе (хедж).",
+    en: "Values near +1 move together (doubled risk); near −1 move opposite (a hedge).",
+  },
+  "hint.cot.1": {
+    ru: "Нетто = лонги минус шорты крупных спекулянтов. Плюс — перевес быков, минус — медведей.",
+    en: "Net = large speculators' longs minus shorts. Positive leans bullish, negative bearish.",
+  },
+  "hint.cot.2": {
+    ru: "«за неделю» — как изменилась чистая позиция с прошлого отчёта: набирают лонги или шорты.",
+    en: "\"w/w\" — how net positioning shifted since last week's report: adding longs or shorts.",
+  },
+  "hint.conv.1": {
+    ru: "Конвертация между 19 валютами по свежим кросс-курсам; курс пары показан под результатом.",
+    en: "Convert between 19 currencies at fresh cross rates; the pair's rate is shown under the result.",
+  },
+
   // Footer
   "footer.disclaimer": {
     ru: "Trading Assistant Pro · только в информационных целях, не является финансовой рекомендацией.",

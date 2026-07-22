@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useI18n } from "@/lib/i18n";
+import InfoHint from "@/components/InfoHint";
 
 // A focused list of currencies traders actually care about, ordered by
 // relevance rather than alphabetically. The full rates payload has ~160
@@ -136,6 +137,7 @@ export default function CurrencyConverter() {
           )}
         </div>
       )}
+      <InfoHint items={[t("hint.conv.1")]} />
     </section>
   );
 }

@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { ASSET_PRESETS } from "@/lib/instruments";
 import { useI18n, assetPresetName, assetPointHint } from "@/lib/i18n";
+import InfoHint from "@/components/InfoHint";
 
 function num(v: string): number {
   const n = parseFloat(v.replace(",", "."));
@@ -194,6 +195,7 @@ export default function Calculators() {
       {tab === "size" && <PositionSizeCalc />}
       {tab === "rr" && <RiskRewardCalc />}
       {tab === "compound" && <CompoundCalc />}
+      <InfoHint items={[t("hint.calc.1"), t("hint.calc.2"), t("hint.calc.3")]} />
     </section>
   );
 }
