@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import InfoHint from "@/components/InfoHint";
+import CotHistory from "@/components/CotHistory";
 import type { CotRow } from "@/app/api/cot/route";
 
 // A long/short split bar for one market: green = long share, red = short share.
@@ -22,6 +23,7 @@ export default function CotPositioning() {
   const [rows, setRows] = useState<CotRow[]>([]);
   const [date, setDate] = useState<string | null>(null);
   const [status, setStatus] = useState<"loading" | "ok" | "error">("loading");
+  const [history, setHistory] = useState<string | null>(null);
 
   useEffect(() => {
     let alive = true;
@@ -66,7 +68,12 @@ export default function CotPositioning() {
           {rows.map((r) => {
             const bullish = r.net >= 0;
             return (
-              <div key={r.label} className="grid grid-cols-[3.5rem_1fr_auto] items-center gap-3">
+              <button
+                key={r.label}
+                onClick={() => setHistory(r.label)}
+                title={t("cot.openHistory")}
+                className="w-full grid grid-cols-[3.5rem_1fr_auto] items-center gap-3 text-left rounded-lg -mx-1 px-1 py-1 hover:bg-bg-hover/50 transition-colors"
+              >
                 <span className="font-semibold text-sm text-fg">{r.label}</span>
                 <div>
                   <SplitBar long={r.long} short={r.short} />
@@ -87,12 +94,14 @@ export default function CotPositioning() {
                     {signed(r.change)} {t("cot.wow")}
                   </div>
                 </div>
-              </div>
+              </button>
             );
           })}
         </div>
       )}
-      <InfoHint items={[t("hint.cot.1"), t("hint.cot.2")]} />
+      <InfoHint items={[t("hint.cot.1"), t("hint.cot.2"), t("hint.cot.3")]} />
+
+      {history && <CotHistory label={history} onClose={() => setHistory(null)} />}
     </section>
   );
 }

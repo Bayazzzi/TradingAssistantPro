@@ -6,9 +6,11 @@ import Ticker from "@/components/Ticker";
 import SessionsClock from "@/components/SessionsClock";
 import MarketOverview from "@/components/MarketOverview";
 import MacroBarometer from "@/components/MacroBarometer";
+import CurrencyStrength from "@/components/CurrencyStrength";
 import Calculators from "@/components/Calculators";
 import Checklist from "@/components/Checklist";
 import EconomicCalendar from "@/components/EconomicCalendar";
+import NewsFeed from "@/components/NewsFeed";
 import Journal from "@/components/Journal";
 import CurrencyConverter from "@/components/CurrencyConverter";
 import CorrelationMatrix from "@/components/CorrelationMatrix";
@@ -89,11 +91,19 @@ function Dashboard() {
           <>
             <SessionsClock soundEnabled={sessionSound} />
             <MarketOverview />
-            <MacroBarometer />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-start">
+              <MacroBarometer />
+              <CurrencyStrength />
+            </div>
           </>
         )}
 
-        {tab === "calendar" && <EconomicCalendar soundEnabled={newsSound} />}
+        {tab === "calendar" && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-start">
+            <EconomicCalendar soundEnabled={newsSound} />
+            <NewsFeed />
+          </div>
+        )}
 
         {tab === "calc" && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-start">

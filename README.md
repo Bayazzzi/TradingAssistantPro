@@ -25,11 +25,16 @@ this?" explainer.
 - **Live Market Ticker** — scrolling quotes for FX majors, gold, silver, oil, BTC/ETH and
   major indices, proxied server-side from Yahoo Finance.
 - **Market Overview** — a table of multi-timeframe performance (1D/1W/1M/YTD), ATR-based
-  volatility and a 30-day sparkline per instrument.
+  volatility and a 30-day sparkline per instrument. Click any row for an **interactive
+  candlestick chart** with 1D–1Y timeframes.
 - **Macro Barometer** — the gauges that set risk sentiment: Dollar Index, US 10Y yield,
   VIX, crypto Fear & Greed and BTC dominance.
+- **Currency Strength** — which currency is strongest/weakest right now, aggregated from a
+  basket of pairs (buy strong against weak).
+- **Market News** — a live headlines feed (Investing.com, FXStreet) linking out to sources.
 - **COT positioning** — how large speculators are positioned in the major futures (CFTC
-  weekly data) with the week-over-week change in net.
+  weekly data) with week-over-week change; click a market for a **detailed weekly COT
+  history heatmap** (long/short, changes, net, % of open interest, open interest).
 - **Economic Calendar** — this week's events with impact levels, forecast and previous,
   filterable by impact and today/week, from the ForexFactory JSON feed.
 - **Calculators** — position size, risk:reward (with breakeven win-rate) and compounding.
@@ -97,11 +102,17 @@ The original Windows desktop version (customtkinter) is preserved under
 - **Бегущая строка котировок** — FX-мажоры, золото, серебро, нефть, BTC/ETH и основные
   индексы через серверный прокси Yahoo Finance.
 - **Обзор рынка** — таблица изменения по таймфреймам (1D/1W/1M/YTD), волатильность на
-  базе ATR и мини-график за 30 дней по каждому инструменту.
+  базе ATR и мини-график за 30 дней по каждому инструменту. Клик по строке открывает
+  **интерактивный свечной график** с таймфреймами 1D–1Y.
 - **Макро-барометр** — индикаторы риск-сентимента: индекс доллара, доходность US 10Y,
   VIX, крипто-индекс страха/жадности и доминация BTC.
-- **COT-позиционирование** — как позиционируются крупные спекулянты в основных фьючерсах
-  (недельные данные CFTC) с изменением нетто-позиции за неделю.
+- **Сила валют** — какая валюта сейчас сильнее/слабее всех, из корзины пар (покупай
+  сильную против слабой).
+- **Лента новостей** — живой фид заголовков (Investing.com, FXStreet) со ссылками на
+  первоисточник.
+- **COT-позиционирование** — как стоят крупные спекулянты в основных фьючерсах (недельные
+  данные CFTC) с изменением за неделю; клик по рынку открывает **детальную недельную
+  историю COT с хитмапом** (лонг/шорт, изменения, нетто, % от открытого интереса, ОИ).
 - **Экономический календарь** — события недели с уровнем важности, прогнозом и предыдущим
   значением, фильтры по важности и сегодня/неделя (фид ForexFactory).
 - **Калькуляторы** — размер позиции, риск:прибыль (с безубыточным винрейтом) и сложный

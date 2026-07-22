@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { COT_MARKETS as MARKETS } from "@/lib/cotMarkets";
 
 // Commitment of Traders (COT): how large speculators (non-commercials) are
 // positioned in the major futures, from the CFTC's public Socrata dataset.
@@ -8,21 +9,6 @@ export const dynamic = "force-dynamic";
 
 const TTL_MS = 6 * 60 * 60 * 1000; // COT publishes weekly (Fridays) — 6h cache is plenty
 const DATASET = "https://publicreporting.cftc.gov/resource/6dca-aqww.json";
-
-// Exact CFTC market names → friendly labels traders recognise.
-const MARKETS: Array<{ cftc: string; label: string }> = [
-  { cftc: "EURO FX", label: "EUR" },
-  { cftc: "BRITISH POUND", label: "GBP" },
-  { cftc: "JAPANESE YEN", label: "JPY" },
-  { cftc: "AUSTRALIAN DOLLAR", label: "AUD" },
-  { cftc: "CANADIAN DOLLAR", label: "CAD" },
-  { cftc: "SWISS FRANC", label: "CHF" },
-  { cftc: "GOLD", label: "GOLD" },
-  { cftc: "SILVER", label: "SILVER" },
-  { cftc: "WTI CRUDE OIL 1ST LINE", label: "OIL" },
-  { cftc: "BITCOIN", label: "BTC" },
-  { cftc: "E-MINI S&P 500", label: "S&P 500" },
-];
 
 export interface CotRow {
   label: string;

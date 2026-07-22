@@ -215,8 +215,65 @@ const DICT: Record<string, Entry> = {
   "nav.analysis": { ru: "Анализ", en: "Analysis" },
   "nav.journal": { ru: "Журнал", en: "Journal" },
 
+  // Interactive chart
+  "chart.open": { ru: "Открыть график", en: "Open chart" },
+  "chart.loading": { ru: "Загрузка графика…", en: "Loading chart…" },
+  "chart.error": { ru: "График недоступен.", en: "Chart unavailable." },
+
+  // Currency strength meter
+  "str.title": { ru: "Сила валют", en: "Currency Strength" },
+  "str.subtitle": {
+    ru: "Какая валюта сейчас сильнее всех (средний дневной ход по корзине пар)",
+    en: "Which currency is strongest now (average daily move across a basket of pairs)",
+  },
+  "str.loading": { ru: "Расчёт силы валют…", en: "Computing currency strength…" },
+  "str.error": { ru: "Данные по силе валют недоступны.", en: "Currency strength data unavailable." },
+
+  // News feed
+  "news.title": { ru: "Лента новостей", en: "Market News" },
+  "news.loading": { ru: "Загрузка новостей…", en: "Loading news…" },
+  "news.error": { ru: "Новости сейчас недоступны.", en: "News feed unavailable right now." },
+  "news.footer": { ru: "Заголовки открываются на первоисточнике · Investing.com, FXStreet", en: "Headlines open at the source · Investing.com, FXStreet" },
+
+  // COT detailed history
+  "cot.openHistory": { ru: "Открыть детальную историю", en: "Open detailed history" },
+  "coth.title": { ru: "детальная история COT", en: "detailed COT history" },
+  "coth.subtitle": {
+    ru: "Позиции некоммерческих трейдеров по неделям (CFTC)",
+    en: "Weekly non-commercial positioning (CFTC)",
+  },
+  "coth.loading": { ru: "Загрузка истории…", en: "Loading history…" },
+  "coth.error": { ru: "История недоступна.", en: "History unavailable." },
+  "coth.date": { ru: "Дата", en: "Date" },
+  "coth.long": { ru: "Лонг", en: "Long" },
+  "coth.short": { ru: "Шорт", en: "Short" },
+  "coth.chgLong": { ru: "Δ Лонг", en: "Chg Long" },
+  "coth.chgShort": { ru: "Δ Шорт", en: "Chg Short" },
+  "coth.net": { ru: "Нетто", en: "Net" },
+  "coth.netChg": { ru: "Δ Нетто", en: "Net Chg" },
+  "coth.netPct": { ru: "Нетто %", en: "Net %" },
+  "coth.oiLong": { ru: "% ОИ Лонг", en: "% OI Long" },
+  "coth.oiShort": { ru: "% ОИ Шорт", en: "% OI Short" },
+  "coth.oi": { ru: "Откр. интерес", en: "Open Interest" },
+
   // Info hints (collapsible explainers)
   "hint.what": { ru: "Что это и что умеет?", en: "What is this?" },
+  "hint.ov.4": {
+    ru: "Клик по строке открывает интерактивный свечной график с таймфреймами.",
+    en: "Click a row to open an interactive candlestick chart with timeframes.",
+  },
+  "hint.str.1": {
+    ru: "Зелёные — сильные валюты, красные — слабые прямо сейчас (за сегодня).",
+    en: "Green = strong currencies, red = weak right now (today's move).",
+  },
+  "hint.str.2": {
+    ru: "Идея: покупать сильную против слабой (напр. сильный EUR × слабый JPY → EUR/JPY).",
+    en: "Idea: buy the strong against the weak (e.g. strong EUR × weak JPY → EUR/JPY).",
+  },
+  "hint.cot.3": {
+    ru: "Клик по рынку открывает детальную недельную историю COT с хитмапом.",
+    en: "Click a market to open its detailed weekly COT history heatmap.",
+  },
   "hint.calc.1": {
     ru: "Размер позиции — считает объём в лотах по балансу, риску в % и стоп-лоссу для форекса, металлов, крипты и индексов.",
     en: "Position size — computes lot size from your balance, risk % and stop-loss for FX, metals, crypto and indices.",

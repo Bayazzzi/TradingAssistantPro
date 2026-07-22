@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import InfoHint from "@/components/InfoHint";
+import PriceChart from "@/components/PriceChart";
 import type { OverviewRow } from "@/app/api/overview/route";
 
 function Sparkline({ points }: { points: number[] }) {
@@ -49,6 +50,7 @@ export default function MarketOverview() {
   const { t } = useI18n();
   const [rows, setRows] = useState<OverviewRow[]>([]);
   const [status, setStatus] = useState<"loading" | "ok" | "error">("loading");
+  const [chart, setChart] = useState<OverviewRow | null>(null);
 
   useEffect(() => {
     let alive = true;
@@ -102,7 +104,12 @@ export default function MarketOverview() {
             </thead>
             <tbody>
               {rows.map((r) => (
-                <tr key={r.symbol} className="border-t border-border/60 hover:bg-bg-hover/50 transition-colors">
+                <tr
+                  key={r.symbol}
+                  onClick={() => setChart(r)}
+                  className="border-t border-border/60 hover:bg-bg-hover/50 transition-colors cursor-pointer"
+                  title={t("chart.open")}
+                >
                   <td className="py-2 pl-1 font-semibold text-fg">{r.label}</td>
                   <td className="py-2 text-right font-mono text-fg">
                     {r.price.toLocaleString("en-US", {
@@ -134,7 +141,16 @@ export default function MarketOverview() {
           </table>
         </div>
       )}
-      <InfoHint items={[t("hint.ov.1"), t("hint.ov.2"), t("hint.ov.3")]} />
+      <InfoHint items={[t("hint.ov.1"), t("hint.ov.2"), t("hint.ov.3"), t("hint.ov.4")]} />
+
+      {chart && (
+        <PriceChart
+          symbol={chart.symbol}
+          label={chart.label}
+          decimals={chart.decimals}
+          onClose={() => setChart(null)}
+        />
+      )}
     </section>
   );
 }
