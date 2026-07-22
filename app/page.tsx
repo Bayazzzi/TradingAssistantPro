@@ -8,15 +8,20 @@ import Calculators from "@/components/Calculators";
 import Checklist from "@/components/Checklist";
 import EconomicCalendar from "@/components/EconomicCalendar";
 import Journal from "@/components/Journal";
+import CurrencyConverter from "@/components/CurrencyConverter";
+import CorrelationMatrix from "@/components/CorrelationMatrix";
 import { useLocalStorage } from "@/lib/useLocalStorage";
 import { unlockAudio } from "@/lib/sound";
 import { I18nProvider, useI18n } from "@/lib/i18n";
+import { ThemeProvider } from "@/lib/theme";
 
 export default function Home() {
   return (
-    <I18nProvider>
-      <Dashboard />
-    </I18nProvider>
+    <ThemeProvider>
+      <I18nProvider>
+        <Dashboard />
+      </I18nProvider>
+    </ThemeProvider>
   );
 }
 
@@ -52,11 +57,16 @@ function Dashboard() {
 
         <Calculators />
 
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+          <CurrencyConverter />
+          <CorrelationMatrix />
+        </div>
+
         <Journal />
       </main>
 
       <footer className="border-t border-border py-5 mt-4">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-600">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-fg-subtle">
           <span>{t("footer.disclaimer")}</span>
           <span className="font-mono">{t("footer.version")}</span>
         </div>

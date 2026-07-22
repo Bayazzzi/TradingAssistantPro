@@ -8,7 +8,7 @@ import { useI18n } from "@/lib/i18n";
 const IMPACT_META: Record<string, { color: string; label: string; rank: number }> = {
   High: { color: "text-down", label: "High", rank: 3 },
   Medium: { color: "text-warn", label: "Medium", rank: 2 },
-  Low: { color: "text-gray-500", label: "Low", rank: 1 },
+  Low: { color: "text-fg-faint", label: "Low", rank: 1 },
   Holiday: { color: "text-blue-400", label: "Holiday", rank: 0 },
 };
 
@@ -25,8 +25,8 @@ function Dots({ impact }: { impact: string }) {
                 ? "bg-down"
                 : impact === "Medium"
                 ? "bg-warn"
-                : "bg-gray-500"
-              : "bg-gray-700"
+                : "bg-fg-faint"
+              : "bg-fg-subtle"
           }`}
         />
       ))}
@@ -105,7 +105,7 @@ export default function EconomicCalendar({ soundEnabled }: { soundEnabled: boole
   return (
     <section className="card p-5 h-full flex flex-col">
       <div className="flex items-center justify-between mb-4 gap-2 flex-wrap">
-        <h2 className="text-sm font-semibold text-gray-200 tracking-wide uppercase">{t("cal.title")}</h2>
+        <h2 className="text-sm font-semibold text-fg tracking-wide uppercase">{t("cal.title")}</h2>
         <div className="flex items-center gap-1.5">
           <div className="flex bg-bg-soft/60 p-0.5 rounded-lg text-xs">
             {(["today", "week"] as const).map((s) => (
@@ -113,7 +113,7 @@ export default function EconomicCalendar({ soundEnabled }: { soundEnabled: boole
                 key={s}
                 onClick={() => setScope(s)}
                 className={`px-2.5 py-1 rounded-md ${
-                  scope === s ? "bg-bg-hover text-gray-100" : "text-gray-500"
+                  scope === s ? "bg-bg-hover text-fg" : "text-fg-faint"
                 }`}
               >
                 {s === "today" ? t("cal.today") : t("cal.week")}
@@ -136,42 +136,51 @@ export default function EconomicCalendar({ soundEnabled }: { soundEnabled: boole
       </div>
 
       <div className="flex-1 overflow-y-auto -mr-2 pr-2 space-y-1.5 max-h-[420px]">
-        {status === "loading" && <p className="text-sm text-gray-500 animate-pulse">{t("cal.loading")}</p>}
-        {status === "error" && <p className="text-sm text-gray-500">{t("cal.error")}</p>}
+        {status === "loading" && <p className="text-sm text-fg-faint animate-pulse">{t("cal.loading")}</p>}
+        {status === "error" && <p className="text-sm text-fg-faint">{t("cal.error")}</p>}
         {status === "ok" && filtered.length === 0 && (
-          <p className="text-sm text-gray-500">{scope === "today" ? t("cal.emptyToday") : t("cal.empty")}</p>
+          <p className="text-sm text-fg-faint">{scope === "today" ? t("cal.emptyToday") : t("cal.empty")}</p>
         )}
         {filtered.map((e) => {
           const past = new Date(e.time).getTime() < Date.now();
+          // ForexFactory's own JSON feed carries no per-event permalink, so a
+          // scoped search is the closest thing to "open this event".
+          const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(
+            `${e.currency} ${e.title} site:forexfactory.com`
+          )}`;
           return (
-            <div
+            <a
               key={e.id}
-              className={`flex items-center gap-3 rounded-xl border border-border bg-bg-soft/40 px-3 py-2 ${
+              href={searchUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              title={t("cal.searchTitle")}
+              className={`flex items-center gap-3 rounded-xl border border-border bg-bg-soft/40 px-3 py-2 hover:bg-bg-hover hover:border-accent/30 transition-colors cursor-pointer ${
                 past ? "opacity-50" : ""
               }`}
             >
               <div className="w-14 shrink-0 text-right">
-                <div className="font-mono text-sm text-gray-200">{fmtTime(e.time)}</div>
-                {scope === "week" && <div className="text-[10px] text-gray-600">{fmtDay(e.time)}</div>}
+                <div className="font-mono text-sm text-fg">{fmtTime(e.time)}</div>
+                {scope === "week" && <div className="text-[10px] text-fg-subtle">{fmtDay(e.time)}</div>}
               </div>
-              <span className="chip bg-white/5 text-gray-300 font-mono shrink-0 w-12 justify-center">
+              <span className="chip bg-fg/5 text-fg-muted font-mono shrink-0 w-12 justify-center">
                 {e.currency}
               </span>
               <Dots impact={e.impact} />
-              <span className="text-sm text-gray-300 truncate flex-1" title={e.title}>
+              <span className="text-sm text-fg-muted truncate flex-1" title={e.title}>
                 {e.title}
               </span>
               {(e.forecast || e.previous) && (
-                <span className="text-[11px] text-gray-500 font-mono shrink-0 hidden sm:block">
+                <span className="text-[11px] text-fg-faint font-mono shrink-0 hidden sm:block">
                   {e.forecast && <span>{t("cal.forecast")}: {e.forecast}</span>}
                   {e.previous && <span className="ml-2">{t("cal.previous")}: {e.previous}</span>}
                 </span>
               )}
-            </div>
+            </a>
           );
         })}
       </div>
-      <p className="mt-3 text-[10px] text-gray-600">{t("cal.footer")}</p>
+      <p className="mt-3 text-[10px] text-fg-subtle">{t("cal.footer")}</p>
     </section>
   );
 }

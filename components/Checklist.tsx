@@ -63,7 +63,7 @@ export default function Checklist({ soundEnabled }: { soundEnabled: boolean }) {
   return (
     <section className="card p-5 h-full flex flex-col">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-sm font-semibold text-gray-200 tracking-wide uppercase">{t("check.title")}</h2>
+        <h2 className="text-sm font-semibold text-fg tracking-wide uppercase">{t("check.title")}</h2>
         <select
           className="input w-auto py-1 text-xs"
           value={style}
@@ -90,12 +90,12 @@ export default function Checklist({ soundEnabled }: { soundEnabled: boolean }) {
           >
             <span
               className={`mt-0.5 w-5 h-5 rounded-md border flex items-center justify-center text-xs shrink-0 ${
-                checked[i] ? "bg-accent border-accent text-black" : "border-gray-600 text-transparent"
+                checked[i] ? "bg-accent border-accent text-black" : "border-fg-subtle text-transparent"
               }`}
             >
               ✓
             </span>
-            <span className={`text-sm ${checked[i] ? "text-gray-200" : "text-gray-400"}`}>{q}</span>
+            <span className={`text-sm ${checked[i] ? "text-fg" : "text-fg-muted"}`}>{q}</span>
           </button>
         ))}
       </div>
@@ -108,7 +108,7 @@ export default function Checklist({ soundEnabled }: { soundEnabled: boolean }) {
           />
         </div>
         <div className="mt-3 min-h-[2.5rem] flex items-center justify-between gap-3">
-          <p className={`text-sm font-medium ${done ? "text-accent animate-fade-in" : "text-gray-500"}`}>
+          <p className={`text-sm font-medium ${done ? "text-accent animate-fade-in" : "text-fg-faint"}`}>
             {done ? quote : t("check.progress", { n: progress, total: questions.length })}
           </p>
           <button onClick={reset} className="btn-ghost text-xs px-3 py-1.5 shrink-0">

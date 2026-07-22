@@ -1,5 +1,9 @@
 import type { Config } from "tailwindcss";
 
+// Semantic colors are driven by CSS variables (RGB triplets) so light/dark
+// themes swap by changing the variables on <html>, not the class names.
+const withVar = (v: string) => `rgb(var(${v}) / <alpha-value>)`;
+
 const config: Config = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
@@ -9,13 +13,19 @@ const config: Config = {
     extend: {
       colors: {
         bg: {
-          DEFAULT: "#0a0e14",
-          soft: "#111823",
-          card: "#141c28",
-          hover: "#1b2635",
+          DEFAULT: withVar("--bg"),
+          soft: withVar("--bg-soft"),
+          card: withVar("--bg-card"),
+          hover: withVar("--bg-hover"),
         },
         border: {
-          DEFAULT: "#1f2b3a",
+          DEFAULT: withVar("--border"),
+        },
+        fg: {
+          DEFAULT: withVar("--fg"),
+          muted: withVar("--fg-muted"),
+          faint: withVar("--fg-faint"),
+          subtle: withVar("--fg-subtle"),
         },
         accent: {
           DEFAULT: "#2cc985",
@@ -23,7 +33,7 @@ const config: Config = {
         },
         up: "#26d07c",
         down: "#ff5c6c",
-        warn: "#ffb020",
+        warn: "#f59e0b",
       },
       fontFamily: {
         mono: ["var(--font-mono)", "ui-monospace", "SFMono-Regular", "Menlo", "monospace"],

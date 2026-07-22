@@ -15,10 +15,10 @@ interface Trade {
 }
 
 function StatTile({ label, value, tone }: { label: string; value: string; tone?: "up" | "down" | "neutral" }) {
-  const color = tone === "up" ? "text-up" : tone === "down" ? "text-down" : "text-gray-100";
+  const color = tone === "up" ? "text-up" : tone === "down" ? "text-down" : "text-fg";
   return (
     <div className="rounded-xl bg-bg-soft/60 border border-border px-3 py-2.5">
-      <div className="text-[11px] text-gray-500">{label}</div>
+      <div className="text-[11px] text-fg-faint">{label}</div>
       <div className={`font-mono text-lg mt-0.5 ${color}`}>{value}</div>
     </div>
   );
@@ -87,7 +87,7 @@ export default function Journal() {
   return (
     <section className="card p-5">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-sm font-semibold text-gray-200 tracking-wide uppercase">{t("jrn.title")}</h2>
+        <h2 className="text-sm font-semibold text-fg tracking-wide uppercase">{t("jrn.title")}</h2>
         {trades.length > 0 && (
           <button onClick={clearAll} className="btn-ghost text-xs px-2.5 py-1 text-down/80">
             {t("jrn.clearAll")}
@@ -163,7 +163,7 @@ export default function Journal() {
 
       {/* List */}
       {trades.length === 0 ? (
-        <p className="text-sm text-gray-500 text-center py-6">{t("jrn.empty")}</p>
+        <p className="text-sm text-fg-faint text-center py-6">{t("jrn.empty")}</p>
       ) : (
         <div className="space-y-1.5 max-h-[300px] overflow-y-auto -mr-2 pr-2">
           {trades.map((tr) => (
@@ -171,13 +171,13 @@ export default function Journal() {
               key={tr.id}
               className="flex items-center gap-3 rounded-xl border border-border bg-bg-soft/40 px-3 py-2 group"
             >
-              <span className="text-[11px] text-gray-600 font-mono w-16 shrink-0">{tr.date.slice(5)}</span>
-              <span className="chip bg-white/5 text-gray-200 font-mono w-16 justify-center shrink-0">{tr.symbol}</span>
+              <span className="text-[11px] text-fg-subtle font-mono w-16 shrink-0">{tr.date.slice(5)}</span>
+              <span className="chip bg-fg/5 text-fg font-mono w-16 justify-center shrink-0">{tr.symbol}</span>
               <span className={`text-xs shrink-0 ${tr.direction === "Long" ? "text-up" : "text-down"}`}>
                 {tr.direction === "Long" ? `▲ ${t("jrn.long")}` : `▼ ${t("jrn.short")}`}
               </span>
-              <span className="text-xs text-gray-500 truncate flex-1">{tr.notes}</span>
-              {tr.rr !== null && <span className="text-xs font-mono text-gray-500 shrink-0">{tr.rr.toFixed(1)}R</span>}
+              <span className="text-xs text-fg-faint truncate flex-1">{tr.notes}</span>
+              {tr.rr !== null && <span className="text-xs font-mono text-fg-faint shrink-0">{tr.rr.toFixed(1)}R</span>}
               <span
                 className={`font-mono text-sm shrink-0 w-24 text-right ${tr.pnl >= 0 ? "text-up" : "text-down"}`}
               >
@@ -185,7 +185,7 @@ export default function Journal() {
               </span>
               <button
                 onClick={() => remove(tr.id)}
-                className="text-gray-600 hover:text-down text-xs opacity-0 group-hover:opacity-100 transition-opacity shrink-0"
+                className="text-fg-subtle hover:text-down text-xs opacity-0 group-hover:opacity-100 transition-opacity shrink-0"
                 title="Delete"
               >
                 ✕
@@ -215,7 +215,7 @@ function EquityCurve({ points, label }: { points: number[]; label: string }) {
   const positive = last >= 0;
   return (
     <div className="rounded-xl bg-bg-soft/60 border border-border p-3">
-      <div className="text-[11px] text-gray-500 mb-1">{label}</div>
+      <div className="text-[11px] text-fg-faint mb-1">{label}</div>
       <svg viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none" className="w-full h-16">
         <line x1="0" y1={h - ((0 - min) / range) * h} x2={w} y2={h - ((0 - min) / range) * h} stroke="#26344a" strokeWidth="0.3" strokeDasharray="1,1" />
         <path d={path} fill="none" stroke={positive ? "#26d07c" : "#ff5c6c"} strokeWidth="0.8" vectorEffect="non-scaling-stroke" />

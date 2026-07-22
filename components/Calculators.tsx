@@ -12,8 +12,8 @@ function num(v: string): number {
 function Stat({ label, value, accent }: { label: string; value: string; accent?: boolean }) {
   return (
     <div className="rounded-xl bg-bg-soft/60 border border-border px-3 py-2.5">
-      <div className="text-[11px] text-gray-500">{label}</div>
-      <div className={`font-mono text-lg mt-0.5 ${accent ? "text-accent" : "text-gray-100"}`}>{value}</div>
+      <div className="text-[11px] text-fg-faint">{label}</div>
+      <div className={`font-mono text-lg mt-0.5 ${accent ? "text-accent" : "text-fg"}`}>{value}</div>
     </div>
   );
 }
@@ -62,7 +62,7 @@ function PositionSizeCalc() {
           <input className="input" value={sl} onChange={(e) => setSl(e.target.value)} inputMode="decimal" />
         </div>
       </div>
-      <p className="text-[11px] text-gray-500">{assetPointHint(asset, lang)}</p>
+      <p className="text-[11px] text-fg-faint">{assetPointHint(asset, lang)}</p>
       <div className="grid grid-cols-2 gap-2">
         <Stat label={t("calc.posSize")} value={result ? result.lot.toFixed(2) : "—"} accent />
         <Stat label={t("calc.riskAmount")} value={result ? `$${result.riskMoney.toFixed(2)}` : "—"} />
@@ -161,7 +161,7 @@ function CompoundCalc() {
         <Stat label={t("calc.finalBalance")} value={res ? `$${res.final.toLocaleString("en-US", { maximumFractionDigits: 0 })}` : "—"} accent />
         <Stat label={t("calc.totalProfit")} value={res ? `$${res.profit.toLocaleString("en-US", { maximumFractionDigits: 0 })}` : "—"} />
       </div>
-      <p className="text-[11px] text-gray-500">{t("calc.compoundNote")}</p>
+      <p className="text-[11px] text-fg-faint">{t("calc.compoundNote")}</p>
     </div>
   );
 }
@@ -177,14 +177,14 @@ export default function Calculators() {
   const [tab, setTab] = useState<(typeof TABS)[number]["id"]>("size");
   return (
     <section className="card p-5">
-      <h2 className="text-sm font-semibold text-gray-200 tracking-wide uppercase mb-4">{t("calc.title")}</h2>
+      <h2 className="text-sm font-semibold text-fg tracking-wide uppercase mb-4">{t("calc.title")}</h2>
       <div className="flex gap-1 mb-4 bg-bg-soft/60 p-1 rounded-xl">
         {TABS.map((tb) => (
           <button
             key={tb.id}
             onClick={() => setTab(tb.id)}
             className={`flex-1 rounded-lg px-2 py-1.5 text-xs font-medium transition-colors ${
-              tab === tb.id ? "bg-bg-hover text-gray-100" : "text-gray-500 hover:text-gray-300"
+              tab === tb.id ? "bg-bg-hover text-fg" : "text-fg-faint hover:text-fg-muted"
             }`}
           >
             {t(tb.key)}

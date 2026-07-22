@@ -3,6 +3,20 @@
 import { useEffect, useState } from "react";
 import { unlockAudio, beep } from "@/lib/sound";
 import { useI18n } from "@/lib/i18n";
+import { useTheme } from "@/lib/theme";
+
+function ThemeToggle() {
+  const { theme, toggle } = useTheme();
+  return (
+    <button
+      onClick={toggle}
+      className="flex items-center justify-center w-8 h-8 rounded-lg border border-border bg-bg-soft/60 text-sm hover:bg-bg-hover transition-colors"
+      title={theme === "dark" ? "Light mode" : "Dark mode"}
+    >
+      {theme === "dark" ? "🌙" : "☀️"}
+    </button>
+  );
+}
 
 function LangToggle() {
   const { lang, setLang } = useI18n();
@@ -13,7 +27,7 @@ function LangToggle() {
           key={l}
           onClick={() => setLang(l)}
           className={`px-2 py-1 rounded-md uppercase transition-colors ${
-            lang === l ? "bg-bg-hover text-gray-100" : "text-gray-500 hover:text-gray-300"
+            lang === l ? "bg-bg-hover text-fg" : "text-fg-faint hover:text-fg-muted"
           }`}
         >
           {l}
@@ -37,13 +51,13 @@ function Toggle({ on, onClick, label, icon }: { on: boolean; onClick: () => void
       className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-medium border transition-colors ${
         on
           ? "border-accent/40 bg-accent/10 text-accent"
-          : "border-border bg-bg-soft/60 text-gray-500 hover:text-gray-300"
+          : "border-border bg-bg-soft/60 text-fg-faint hover:text-fg-muted"
       }`}
       title={`${label}: ${on ? "on" : "off"}`}
     >
       <span>{icon}</span>
       <span className="hidden sm:inline">{label}</span>
-      <span className={`w-1.5 h-1.5 rounded-full ${on ? "bg-accent" : "bg-gray-600"}`} />
+      <span className={`w-1.5 h-1.5 rounded-full ${on ? "bg-accent" : "bg-fg-subtle"}`} />
     </button>
   );
 }
@@ -76,10 +90,10 @@ export default function Header({ sessionSound, newsSound, onToggleSession, onTog
             ▲
           </span>
           <div>
-            <h1 className="text-sm font-bold text-gray-100 leading-tight">
+            <h1 className="text-sm font-bold text-fg leading-tight">
               Trading Assistant <span className="text-accent">Pro</span>
             </h1>
-            <p className="text-[10px] text-gray-500 leading-tight font-mono">UTC {utc}</p>
+            <p className="text-[10px] text-fg-faint leading-tight font-mono">UTC {utc}</p>
           </div>
         </div>
 
@@ -105,6 +119,7 @@ export default function Header({ sessionSound, newsSound, onToggleSession, onTog
             icon="📢"
           />
           <LangToggle />
+          <ThemeToggle />
         </div>
       </div>
     </header>

@@ -8,8 +8,8 @@ function QuoteItem({ q }: { q: Quote }) {
   const up = q.changePct >= 0;
   return (
     <span className="inline-flex items-center gap-2 px-5 border-r border-border/60">
-      <span className="font-semibold text-gray-200">{q.label}</span>
-      <span className="font-mono text-gray-100">
+      <span className="font-semibold text-fg">{q.label}</span>
+      <span className="font-mono text-fg">
         {q.price.toLocaleString("en-US", {
           minimumFractionDigits: q.decimals,
           maximumFractionDigits: q.decimals,
@@ -54,7 +54,7 @@ export default function Ticker() {
 
   if (status === "loading") {
     return (
-      <div className="h-9 flex items-center px-4 bg-black/60 border-b border-border text-sm text-gray-500">
+      <div className="h-9 flex items-center px-4 bg-bg-soft border-b border-border text-sm text-fg-faint">
         <span className="animate-pulse">{t("ticker.loading")}</span>
       </div>
     );
@@ -62,7 +62,7 @@ export default function Ticker() {
 
   if (status === "error" || quotes.length === 0) {
     return (
-      <div className="h-9 flex items-center px-4 bg-black/60 border-b border-border text-sm text-gray-500">
+      <div className="h-9 flex items-center px-4 bg-bg-soft border-b border-border text-sm text-fg-faint">
         {t("ticker.error")}
       </div>
     );
@@ -72,7 +72,7 @@ export default function Ticker() {
   const doubled = [...quotes, ...quotes];
 
   return (
-    <div className="h-9 flex items-center bg-black/60 border-b border-border overflow-hidden group">
+    <div className="h-9 flex items-center bg-bg-soft border-b border-border overflow-hidden group">
       <div className="marquee-track animate-marquee group-hover:no-marquee-anim text-sm">
         {doubled.map((q, i) => (
           <QuoteItem key={`${q.symbol}-${i}`} q={q} />

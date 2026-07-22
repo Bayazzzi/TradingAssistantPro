@@ -132,6 +132,30 @@ const DICT: Record<string, Entry> = {
     en: "Delete all journal entries? This cannot be undone.",
   },
 
+  // Currency converter
+  "conv.title": { ru: "Конвертер валют", en: "Currency Converter" },
+  "conv.amount": { ru: "Сумма", en: "Amount" },
+  "conv.swap": { ru: "Поменять местами", en: "Swap" },
+  "conv.rate": { ru: "Курс", en: "Rate" },
+  "conv.loading": { ru: "Загрузка курсов…", en: "Loading rates…" },
+  "conv.error": { ru: "Курсы недоступны — попробуй позже.", en: "Rates unavailable — try again later." },
+  "conv.updated": { ru: "Обновлено", en: "Updated" },
+
+  // Correlation matrix
+  "corr.title": { ru: "Корреляция пар", en: "Pair Correlation" },
+  "corr.subtitle": {
+    ru: "Корреляция дневной доходности за 3 месяца — от −1 (противофаза) до +1 (движутся вместе)",
+    en: "3-month daily-return correlation — from −1 (opposite) to +1 (moves together)",
+  },
+  "corr.loading": { ru: "Расчёт корреляций…", en: "Computing correlations…" },
+  "corr.error": { ru: "Данные для расчёта недоступны.", en: "Correlation data unavailable." },
+  "corr.strong": { ru: "Сильная", en: "Strong" },
+  "corr.weak": { ru: "Слабая", en: "Weak" },
+  "corr.inverse": { ru: "Обратная", en: "Inverse" },
+
+  // Calendar event link
+  "cal.searchTitle": { ru: "Искать это событие", en: "Search this event" },
+
   // Footer
   "footer.disclaimer": {
     ru: "Trading Assistant Pro · только в информационных целях, не является финансовой рекомендацией.",

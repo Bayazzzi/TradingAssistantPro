@@ -26,6 +26,10 @@ any device, and needs no installation. Interface available in **Russian and Engl
 - **Pre-Trade Checklist** — discipline gate with scalping / intraday / swing presets.
 - **Trade Journal** — log trades locally and get net P/L, win rate, profit factor, average
   R and an equity curve. Stored in your browser — nothing leaves your device.
+- **Currency Converter** — convert between 19 major/EM currencies using live rates.
+- **Pair Correlation** — a heatmap of 3-month daily-return correlation across FX majors,
+  gold, oil, BTC and the S&P 500, so you can spot hidden overlapping risk.
+- **Light / dark theme** — toggle in the header, persisted, no flash on reload.
 - **Sound alerts** — cross-platform chimes (Web Audio API) for session opens and imminent
   high-impact news.
 
@@ -85,6 +89,11 @@ The original Windows desktop version (customtkinter) is preserved under
 - **Чек-лист перед сделкой** — дисциплина с пресетами скальпинг / интрадей / свинг.
 - **Журнал сделок** — веди сделки локально и получай чистый P/L, винрейт, профит-фактор,
   средний R и кривую эквити. Хранится в браузере — данные не покидают устройство.
+- **Конвертер валют** — конвертация между 19 основными и валютами развивающихся рынков по
+  живым курсам.
+- **Корреляция пар** — тепловая карта корреляции дневной доходности за 3 месяца по FX-мажорам,
+  золоту, нефти, BTC и S&P 500 — помогает увидеть скрытое пересечение риска.
+- **Светлая/тёмная тема** — переключатель в шапке, сохраняется, без мигания при перезагрузке.
 - **Звуковые алерты** — кроссплатформенные сигналы (Web Audio API) на открытие сессий и
   приближение важных новостей.
 

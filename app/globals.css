@@ -5,12 +5,43 @@
 :root {
   --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-mono: "JetBrains Mono", "SF Mono", ui-monospace, Consolas, monospace;
+
+  /* Dark theme (default) — RGB triplets consumed by Tailwind color tokens */
+  --bg: 10 14 20;
+  --bg-soft: 17 24 35;
+  --bg-card: 20 28 40;
+  --bg-hover: 27 38 53;
+  --border: 31 43 58;
+  --fg: 230 237 243;
+  --fg-muted: 168 181 197;
+  --fg-faint: 125 139 156;
+  --fg-subtle: 92 104 119;
+
+  --scrollbar: 38 52 74;
+  --scrollbar-hover: 51 69 95;
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  --bg: 240 243 248;
+  --bg-soft: 255 255 255;
+  --bg-card: 255 255 255;
+  --bg-hover: 232 237 244;
+  --border: 214 221 231;
+  --fg: 24 32 44;
+  --fg-muted: 71 85 105;
+  --fg-faint: 113 128 147;
+  --fg-subtle: 148 163 184;
+
+  --scrollbar: 203 213 225;
+  --scrollbar-hover: 148 163 184;
+  color-scheme: light;
 }
 
 html,
 body {
-  background: #0a0e14;
-  color: #e6edf3;
+  background: rgb(var(--bg));
+  color: rgb(var(--fg));
   -webkit-font-smoothing: antialiased;
 }
 
@@ -23,11 +54,11 @@ body {
   background: transparent;
 }
 *::-webkit-scrollbar-thumb {
-  background: #26344a;
+  background: rgb(var(--scrollbar));
   border-radius: 4px;
 }
 *::-webkit-scrollbar-thumb:hover {
-  background: #33455f;
+  background: rgb(var(--scrollbar-hover));
 }
 
 @layer components {
@@ -39,17 +70,17 @@ body {
            transition-colors disabled:opacity-40 disabled:cursor-not-allowed select-none;
   }
   .btn-primary {
-    @apply btn bg-accent text-black hover:bg-accent-soft;
+    @apply btn bg-accent text-white hover:bg-accent-soft;
   }
   .btn-ghost {
-    @apply btn bg-bg-hover text-gray-200 hover:bg-[#243248] border border-border;
+    @apply btn bg-bg-hover text-fg-muted hover:text-fg border border-border;
   }
   .input {
-    @apply w-full bg-bg-soft border border-border rounded-xl px-3 py-2 text-sm text-gray-100
-           outline-none focus:border-accent transition-colors placeholder:text-gray-600;
+    @apply w-full bg-bg-soft border border-border rounded-xl px-3 py-2 text-sm text-fg
+           outline-none focus:border-accent transition-colors placeholder:text-fg-subtle;
   }
   .label {
-    @apply text-xs font-medium text-gray-400 mb-1 block;
+    @apply text-xs font-medium text-fg-faint mb-1 block;
   }
   .chip {
     @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium;

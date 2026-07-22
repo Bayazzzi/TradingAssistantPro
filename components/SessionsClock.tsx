@@ -20,26 +20,26 @@ function SessionCard({ s }: { s: SessionState }) {
     : "border-border bg-bg-soft/40";
 
   const statusColor =
-    s.status === "OPEN" ? "text-accent" : s.status === "WEEKEND" ? "text-warn" : "text-gray-500";
+    s.status === "OPEN" ? "text-accent" : s.status === "WEEKEND" ? "text-warn" : "text-fg-faint";
 
   return (
     <div className={`relative rounded-2xl border p-4 transition-colors ${openStyles}`}>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <span className="text-lg leading-none">{s.def.flag}</span>
-          <span className="font-semibold text-sm text-gray-100">{t(`sessions.city.${s.def.city}`)}</span>
+          <span className="font-semibold text-sm text-fg">{t(`sessions.city.${s.def.city}`)}</span>
         </div>
         <span className="text-base leading-none" title={s.isDay ? t("sessions.day") : t("sessions.night")}>
           {s.isDay ? "☀️" : "🌙"}
         </span>
       </div>
 
-      <div className="mt-3 font-mono text-2xl tracking-tight text-gray-50">{s.localTime}</div>
+      <div className="mt-3 font-mono text-2xl tracking-tight text-fg">{s.localTime}</div>
 
       <div className="mt-2 flex items-center justify-between">
         <span
           className={`chip ${
-            s.isOpen ? "bg-accent/15" : "bg-white/5"
+            s.isOpen ? "bg-accent/15" : "bg-fg/5"
           } ${statusColor}`}
         >
           {s.isOpen && (
@@ -49,9 +49,9 @@ function SessionCard({ s }: { s: SessionState }) {
         </span>
       </div>
 
-      <div className="mt-3 text-xs text-gray-500">
+      <div className="mt-3 text-xs text-fg-faint">
         {s.isOpen ? t("sessions.closesIn") : t("sessions.opensIn")}{" "}
-        <span className={`font-mono ${s.isOpen ? "text-accent/90" : "text-gray-300"}`}>
+        <span className={`font-mono ${s.isOpen ? "text-accent/90" : "text-fg-muted"}`}>
           {formatCountdown(s.msToBoundary)}
         </span>
       </div>
@@ -64,7 +64,7 @@ function Timeline({ nowUTCHour }: { nowUTCHour: number }) {
   const { t } = useI18n();
   return (
     <div className="mt-4">
-      <div className="flex items-center justify-between text-[10px] text-gray-600 mb-1 font-mono px-0.5">
+      <div className="flex items-center justify-between text-[10px] text-fg-subtle mb-1 font-mono px-0.5">
         <span>00 UTC</span>
         <span>06</span>
         <span>12</span>
@@ -100,7 +100,7 @@ function Timeline({ nowUTCHour }: { nowUTCHour: number }) {
         })}
         {/* Now marker */}
         <div
-          className="absolute top-0 bottom-0 w-px bg-white/80"
+          className="absolute top-0 bottom-0 w-px bg-fg/70"
           style={{ left: `${(nowUTCHour / 24) * 100}%` }}
         >
           <div className="absolute -top-0.5 -left-1 w-2 h-2 rounded-full bg-white" />
@@ -108,7 +108,7 @@ function Timeline({ nowUTCHour }: { nowUTCHour: number }) {
       </div>
       <div className="mt-2 flex flex-wrap gap-3">
         {SESSIONS.map((def) => (
-          <span key={def.key} className="flex items-center gap-1.5 text-[11px] text-gray-400">
+          <span key={def.key} className="flex items-center gap-1.5 text-[11px] text-fg-muted">
             <span className="w-2.5 h-2.5 rounded-sm" style={{ background: def.color }} />
             {t(`sessions.city.${def.city}`)}
           </span>
@@ -157,14 +157,14 @@ export default function SessionsClock({ soundEnabled }: { soundEnabled: boolean 
   return (
     <section className="card p-5">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-sm font-semibold text-gray-200 tracking-wide uppercase">
+        <h2 className="text-sm font-semibold text-fg tracking-wide uppercase">
           {t("sessions.title")}
         </h2>
         <div className="flex items-center gap-2">
           {overlapLabel ? (
             <span className="chip bg-warn/15 text-warn">⚡ {t("sessions.overlap")}: {overlapLabel}</span>
           ) : (
-            <span className="chip bg-white/5 text-gray-400">{openCount} {t("sessions.open")}</span>
+            <span className="chip bg-fg/5 text-fg-muted">{openCount} {t("sessions.open")}</span>
           )}
         </div>
       </div>
@@ -176,7 +176,7 @@ export default function SessionsClock({ soundEnabled }: { soundEnabled: boolean 
               <div key={def.key} className="rounded-2xl border border-border bg-bg-soft/40 p-4 h-[132px] animate-pulse">
                 <div className="flex items-center gap-2">
                   <span className="text-lg leading-none">{def.flag}</span>
-                  <span className="font-semibold text-sm text-gray-100">{t(`sessions.city.${def.city}`)}</span>
+                  <span className="font-semibold text-sm text-fg">{t(`sessions.city.${def.city}`)}</span>
                 </div>
               </div>
             ))}
