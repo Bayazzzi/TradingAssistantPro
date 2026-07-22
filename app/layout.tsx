@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { themeInitScript } from "@/lib/theme";
 
@@ -28,7 +29,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Set the theme attribute before paint to avoid a flash of the wrong theme. */}
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
-      <body className="min-h-screen antialiased">{children}</body>
+      <body className="min-h-screen antialiased">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }

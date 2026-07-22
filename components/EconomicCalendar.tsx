@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { alertNews } from "@/lib/sound";
 import type { CalendarEvent } from "@/app/api/calendar/route";
 import { useI18n } from "@/lib/i18n";
+import { trackCalendarNewsClick } from "@/lib/analytics";
 
 const IMPACT_META: Record<string, { color: string; label: string; rank: number }> = {
   High: { color: "text-down", label: "High", rank: 3 },
@@ -155,6 +156,7 @@ export default function EconomicCalendar({ soundEnabled }: { soundEnabled: boole
               target="_blank"
               rel="noopener noreferrer"
               title={t("cal.searchTitle")}
+              onClick={() => trackCalendarNewsClick(e.currency, e.impact)}
               className={`flex items-center gap-3 rounded-xl border border-border bg-bg-soft/40 px-3 py-2 hover:bg-bg-hover hover:border-accent/30 transition-colors cursor-pointer ${
                 past ? "opacity-50" : ""
               }`}

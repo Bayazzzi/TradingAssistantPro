@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import InfoHint from "@/components/InfoHint";
 import CotHistory from "@/components/CotHistory";
+import { trackCotHistoryOpen } from "@/lib/analytics";
 import type { CotRow } from "@/app/api/cot/route";
 
 // A long/short split bar for one market: green = long share, red = short share.
@@ -70,7 +71,10 @@ export default function CotPositioning() {
             return (
               <button
                 key={r.label}
-                onClick={() => setHistory(r.label)}
+                onClick={() => {
+                  setHistory(r.label);
+                  trackCotHistoryOpen(r.label);
+                }}
                 title={t("cot.openHistory")}
                 className="w-full grid grid-cols-[3.5rem_1fr_auto] items-center gap-3 text-left rounded-lg -mx-1 px-1 py-1 hover:bg-bg-hover/50 transition-colors"
               >

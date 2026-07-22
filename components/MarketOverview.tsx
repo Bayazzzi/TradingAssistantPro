@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import InfoHint from "@/components/InfoHint";
 import PriceChart from "@/components/PriceChart";
+import { trackChartOpen } from "@/lib/analytics";
 import type { OverviewRow } from "@/app/api/overview/route";
 
 function Sparkline({ points }: { points: number[] }) {
@@ -106,7 +107,10 @@ export default function MarketOverview() {
               {rows.map((r) => (
                 <tr
                   key={r.symbol}
-                  onClick={() => setChart(r)}
+                  onClick={() => {
+                    setChart(r);
+                    trackChartOpen(r.label);
+                  }}
                   className="border-t border-border/60 hover:bg-bg-hover/50 transition-colors cursor-pointer"
                   title={t("chart.open")}
                 >

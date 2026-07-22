@@ -56,6 +56,15 @@ this?" explainer.
 - **Sound alerts** — cross-platform chimes (Web Audio API) for session opens and imminent
   high-impact news.
 
+### Analytics
+
+Vercel Web Analytics is wired in (`@vercel/analytics`), plus custom events for tab
+switches, chart/COT-history opens and theme/language toggles — since all sections are
+client-side tabs on a single route, custom events are what actually shows which parts of
+the dashboard get used. View it in the Vercel dashboard → project → **Analytics** tab
+(needs to be enabled once per project). No cookies, no PII beyond standard IP-derived
+geography.
+
 ### Tech stack
 
 Next.js 14 (App Router) · React 18 · TypeScript · Tailwind CSS. Serverless API routes proxy

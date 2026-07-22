@@ -22,6 +22,7 @@ import { useLocalStorage } from "@/lib/useLocalStorage";
 import { unlockAudio } from "@/lib/sound";
 import { I18nProvider, useI18n } from "@/lib/i18n";
 import { ThemeProvider } from "@/lib/theme";
+import { trackTabView } from "@/lib/analytics";
 
 export default function Home() {
   return (
@@ -55,6 +56,13 @@ function Dashboard() {
     window.addEventListener("pointerdown", handler, { once: true });
     return () => window.removeEventListener("pointerdown", handler);
   }, []);
+
+  // Tabs are client-side state on a single route, so automatic pageview
+  // tracking can't tell them apart — fire a custom event on every switch
+  // (including the initial tab restored from localStorage).
+  useEffect(() => {
+    trackTabView(tab);
+  }, [tab]);
 
   return (
     <div className="min-h-screen flex flex-col">

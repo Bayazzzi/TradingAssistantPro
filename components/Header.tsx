@@ -4,12 +4,16 @@ import { useEffect, useState } from "react";
 import { unlockAudio, beep } from "@/lib/sound";
 import { useI18n } from "@/lib/i18n";
 import { useTheme } from "@/lib/theme";
+import { trackThemeToggle, trackLangToggle } from "@/lib/analytics";
 
 function ThemeToggle() {
   const { theme, toggle } = useTheme();
   return (
     <button
-      onClick={toggle}
+      onClick={() => {
+        toggle();
+        trackThemeToggle(theme === "dark" ? "light" : "dark");
+      }}
       className="flex items-center justify-center w-8 h-8 rounded-lg border border-border bg-bg-soft/60 text-sm hover:bg-bg-hover transition-colors"
       title={theme === "dark" ? "Light mode" : "Dark mode"}
     >
@@ -25,7 +29,10 @@ function LangToggle() {
       {(["ru", "en"] as const).map((l) => (
         <button
           key={l}
-          onClick={() => setLang(l)}
+          onClick={() => {
+            setLang(l);
+            trackLangToggle(l);
+          }}
           className={`px-2 py-1 rounded-md uppercase transition-colors ${
             lang === l ? "bg-bg-hover text-fg" : "text-fg-faint hover:text-fg-muted"
           }`}
