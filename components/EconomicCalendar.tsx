@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { alertNews } from "@/lib/sound";
 import type { CalendarEvent } from "@/app/api/calendar/route";
+import { useI18n } from "@/lib/i18n";
 
 const IMPACT_META: Record<string, { color: string; label: string; rank: number }> = {
   High: { color: "text-down", label: "High", rank: 3 },
@@ -34,6 +35,7 @@ function Dots({ impact }: { impact: string }) {
 }
 
 export default function EconomicCalendar({ soundEnabled }: { soundEnabled: boolean }) {
+  const { t, lang } = useI18n();
   const [events, setEvents] = useState<CalendarEvent[]>([]);
   const [status, setStatus] = useState<"loading" | "ok" | "error">("loading");
   const [minImpact, setMinImpact] = useState<number>(2); // default: medium+
@@ -94,26 +96,27 @@ export default function EconomicCalendar({ soundEnabled }: { soundEnabled: boole
     return () => clearInterval(id);
   }, [events, soundEnabled]);
 
+  const locale = lang === "ru" ? "ru-RU" : "en-GB";
   const fmtTime = (iso: string) =>
-    new Date(iso).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    new Date(iso).toLocaleTimeString(locale, { hour: "2-digit", minute: "2-digit" });
   const fmtDay = (iso: string) =>
-    new Date(iso).toLocaleDateString([], { weekday: "short", day: "numeric", month: "short" });
+    new Date(iso).toLocaleDateString(locale, { weekday: "short", day: "numeric", month: "short" });
 
   return (
     <section className="card p-5 h-full flex flex-col">
       <div className="flex items-center justify-between mb-4 gap-2 flex-wrap">
-        <h2 className="text-sm font-semibold text-gray-200 tracking-wide uppercase">Economic Calendar</h2>
+        <h2 className="text-sm font-semibold text-gray-200 tracking-wide uppercase">{t("cal.title")}</h2>
         <div className="flex items-center gap-1.5">
           <div className="flex bg-bg-soft/60 p-0.5 rounded-lg text-xs">
             {(["today", "week"] as const).map((s) => (
               <button
                 key={s}
                 onClick={() => setScope(s)}
-                className={`px-2.5 py-1 rounded-md capitalize ${
+                className={`px-2.5 py-1 rounded-md ${
                   scope === s ? "bg-bg-hover text-gray-100" : "text-gray-500"
                 }`}
               >
-                {s}
+                {s === "today" ? t("cal.today") : t("cal.week")}
               </button>
             ))}
           </div>
@@ -122,9 +125,9 @@ export default function EconomicCalendar({ soundEnabled }: { soundEnabled: boole
             value={minImpact}
             onChange={(e) => setMinImpact(Number(e.target.value))}
           >
-            <option value={3}>High only</option>
-            <option value={2}>Medium+</option>
-            <option value={1}>All</option>
+            <option value={3}>{t("cal.highOnly")}</option>
+            <option value={2}>{t("cal.mediumPlus")}</option>
+            <option value={1}>{t("cal.all")}</option>
           </select>
           <button onClick={load} className="btn-ghost text-xs px-2.5 py-1" title="Refresh">
             ↻
@@ -133,14 +136,10 @@ export default function EconomicCalendar({ soundEnabled }: { soundEnabled: boole
       </div>
 
       <div className="flex-1 overflow-y-auto -mr-2 pr-2 space-y-1.5 max-h-[420px]">
-        {status === "loading" && <p className="text-sm text-gray-500 animate-pulse">Loading events…</p>}
-        {status === "error" && (
-          <p className="text-sm text-gray-500">
-            Calendar feed is unavailable right now. Try refreshing in a moment.
-          </p>
-        )}
+        {status === "loading" && <p className="text-sm text-gray-500 animate-pulse">{t("cal.loading")}</p>}
+        {status === "error" && <p className="text-sm text-gray-500">{t("cal.error")}</p>}
         {status === "ok" && filtered.length === 0 && (
-          <p className="text-sm text-gray-500">No events match this filter{scope === "today" ? " today" : ""}.</p>
+          <p className="text-sm text-gray-500">{scope === "today" ? t("cal.emptyToday") : t("cal.empty")}</p>
         )}
         {filtered.map((e) => {
           const past = new Date(e.time).getTime() < Date.now();
@@ -164,15 +163,15 @@ export default function EconomicCalendar({ soundEnabled }: { soundEnabled: boole
               </span>
               {(e.forecast || e.previous) && (
                 <span className="text-[11px] text-gray-500 font-mono shrink-0 hidden sm:block">
-                  {e.forecast && <span>F: {e.forecast}</span>}
-                  {e.previous && <span className="ml-2">P: {e.previous}</span>}
+                  {e.forecast && <span>{t("cal.forecast")}: {e.forecast}</span>}
+                  {e.previous && <span className="ml-2">{t("cal.previous")}: {e.previous}</span>}
                 </span>
               )}
             </div>
           );
         })}
       </div>
-      <p className="mt-3 text-[10px] text-gray-600">Times shown in your local timezone · source: ForexFactory</p>
+      <p className="mt-3 text-[10px] text-gray-600">{t("cal.footer")}</p>
     </section>
   );
 }

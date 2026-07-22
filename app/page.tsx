@@ -10,8 +10,18 @@ import EconomicCalendar from "@/components/EconomicCalendar";
 import Journal from "@/components/Journal";
 import { useLocalStorage } from "@/lib/useLocalStorage";
 import { unlockAudio } from "@/lib/sound";
+import { I18nProvider, useI18n } from "@/lib/i18n";
 
 export default function Home() {
+  return (
+    <I18nProvider>
+      <Dashboard />
+    </I18nProvider>
+  );
+}
+
+function Dashboard() {
+  const { t } = useI18n();
   const [sessionSound, setSessionSound] = useLocalStorage<boolean>("tap.sound.session", true);
   const [newsSound, setNewsSound] = useLocalStorage<boolean>("tap.sound.news", true);
 
@@ -47,8 +57,8 @@ export default function Home() {
 
       <footer className="border-t border-border py-5 mt-4">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-600">
-          <span>Trading Assistant Pro · for informational purposes only, not financial advice.</span>
-          <span className="font-mono">v8.0 · web edition</span>
+          <span>{t("footer.disclaimer")}</span>
+          <span className="font-mono">{t("footer.version")}</span>
         </div>
       </footer>
     </div>

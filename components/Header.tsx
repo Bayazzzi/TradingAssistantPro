@@ -2,6 +2,26 @@
 
 import { useEffect, useState } from "react";
 import { unlockAudio, beep } from "@/lib/sound";
+import { useI18n } from "@/lib/i18n";
+
+function LangToggle() {
+  const { lang, setLang } = useI18n();
+  return (
+    <div className="flex bg-bg-soft/60 border border-border rounded-lg p-0.5 text-xs font-medium">
+      {(["ru", "en"] as const).map((l) => (
+        <button
+          key={l}
+          onClick={() => setLang(l)}
+          className={`px-2 py-1 rounded-md uppercase transition-colors ${
+            lang === l ? "bg-bg-hover text-gray-100" : "text-gray-500 hover:text-gray-300"
+          }`}
+        >
+          {l}
+        </button>
+      ))}
+    </div>
+  );
+}
 
 interface Props {
   sessionSound: boolean;
@@ -29,6 +49,7 @@ function Toggle({ on, onClick, label, icon }: { on: boolean; onClick: () => void
 }
 
 export default function Header({ sessionSound, newsSound, onToggleSession, onToggleNews }: Props) {
+  const { t } = useI18n();
   const [utc, setUtc] = useState("--:--:--");
 
   useEffect(() => {
@@ -70,7 +91,7 @@ export default function Header({ sessionSound, newsSound, onToggleSession, onTog
               if (!sessionSound) beep(880, 150, 0.12);
               onToggleSession();
             }}
-            label="Sessions"
+            label={t("header.sessions")}
             icon="🔔"
           />
           <Toggle
@@ -80,9 +101,10 @@ export default function Header({ sessionSound, newsSound, onToggleSession, onTog
               if (!newsSound) beep(1200, 150, 0.12);
               onToggleNews();
             }}
-            label="News"
+            label={t("header.news")}
             icon="📢"
           />
+          <LangToggle />
         </div>
       </div>
     </header>

@@ -1,56 +1,35 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useLocalStorage } from "@/lib/useLocalStorage";
 import { chimeSuccess } from "@/lib/sound";
-
-const STYLES: Record<string, string[]> = {
-  "Scalping (M1/M5)": [
-    "Context on M15/H1 confirms the entry",
-    "Spread is minimal, volatility is present",
-    "No high-impact news due right now",
-    "Tight stop-loss is defined",
-    "Quick take-profit level is marked",
-    "I'm focused and not tilting",
-  ],
-  "Intraday (H1/H4)": [
-    "Higher-timeframe trend (H1/H4) is identified",
-    "Support / resistance level is confirmed",
-    "News checked — no impulse expected",
-    "Risk per trade is calculated (1–2%)",
-    "Take-profit is at least 2× the stop-loss",
-    "I'm calm — no revenge trading",
-  ],
-  "Swing (D1)": [
-    "Macro trend (D1/W1) is on my side",
-    "Fundamentals are not against the idea",
-    "Swap / overnight costs accounted for",
-    "Stop-loss can survive normal volatility",
-    "Move potential is 1:3 or better",
-    "I'm ready to hold for days",
-  ],
-};
-
-const QUOTES = [
-  "Discipline is the bridge between goals and profit. 🚀",
-  "Sniper entry — now pull the trigger. 🎯",
-  "The trend is your friend.",
-  "Protect capital first, profit second.",
-  "A cool head is your biggest edge.",
-  "Fortune favours the prepared. 🐂🐻",
-  "Respect your risk. Every time.",
-  "Don't be greedy — follow the plan.",
-  "Great setups are worth the wait.",
-  "Today is a good day for a clean trade. 💸",
-];
+import {
+  useI18n,
+  CHECKLIST_STYLE_IDS,
+  checklistStyleName,
+  checklistQuestions,
+  motivationQuotes,
+  type ChecklistStyleId,
+} from "@/lib/i18n";
 
 export default function Checklist({ soundEnabled }: { soundEnabled: boolean }) {
-  const [style, setStyle] = useLocalStorage<string>("tap.checklist.style", "Intraday (H1/H4)");
-  const questions = STYLES[style] ?? STYLES["Intraday (H1/H4)"];
+  const { t, lang } = useI18n();
+  const [rawStyle, setStyle] = useLocalStorage<ChecklistStyleId>("tap.checklist.style", "intraday");
+  // Guard against values persisted by older versions (which stored a label,
+  // not an id) so an unknown key can't crash the lookups.
+  const style: ChecklistStyleId = CHECKLIST_STYLE_IDS.includes(rawStyle as ChecklistStyleId)
+    ? (rawStyle as ChecklistStyleId)
+    : "intraday";
+  const questions = checklistQuestions(style, lang);
   const [checked, setChecked] = useState<boolean[]>(() => questions.map(() => false));
-  const [quote, setQuote] = useState<string | null>(null);
+  const [quoteIdx, setQuoteIdx] = useState<number | null>(null);
 
   const done = useMemo(() => checked.length > 0 && checked.every(Boolean), [checked]);
+
+  // Keep the checked array length in sync if the style changes elsewhere.
+  useEffect(() => {
+    setChecked((prev) => (prev.length === questions.length ? prev : questions.map(() => false)));
+  }, [questions.length]);
 
   const toggle = (i: number) => {
     setChecked((prev) => {
@@ -58,40 +37,41 @@ export default function Checklist({ soundEnabled }: { soundEnabled: boolean }) {
       next[i] = !next[i];
       const allDone = next.length === questions.length && next.every(Boolean);
       if (allDone && !done) {
-        setQuote(QUOTES[Math.floor(Math.random() * QUOTES.length)]);
+        setQuoteIdx(Math.floor(Math.random() * motivationQuotes(lang).length));
         if (soundEnabled) chimeSuccess();
       } else if (!allDone) {
-        setQuote(null);
+        setQuoteIdx(null);
       }
       return next;
     });
   };
 
-  const changeStyle = (s: string) => {
+  const changeStyle = (s: ChecklistStyleId) => {
     setStyle(s);
-    setChecked(STYLES[s].map(() => false));
-    setQuote(null);
+    setChecked(checklistQuestions(s, lang).map(() => false));
+    setQuoteIdx(null);
   };
 
   const reset = () => {
     setChecked(questions.map(() => false));
-    setQuote(null);
+    setQuoteIdx(null);
   };
 
   const progress = checked.filter(Boolean).length;
+  const quote = quoteIdx !== null ? motivationQuotes(lang)[quoteIdx] : null;
 
   return (
     <section className="card p-5 h-full flex flex-col">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-sm font-semibold text-gray-200 tracking-wide uppercase">Pre-Trade Checklist</h2>
+        <h2 className="text-sm font-semibold text-gray-200 tracking-wide uppercase">{t("check.title")}</h2>
         <select
           className="input w-auto py-1 text-xs"
           value={style}
-          onChange={(e) => changeStyle(e.target.value)}
+          onChange={(e) => changeStyle(e.target.value as ChecklistStyleId)}
         >
-          {Object.keys(STYLES).map((s) => (
+          {CHECKLIST_STYLE_IDS.map((s) => (
             <option key={s} value={s}>
-              {s}
+              {checklistStyleName(s, lang)}
             </option>
           ))}
         </select>
@@ -129,10 +109,10 @@ export default function Checklist({ soundEnabled }: { soundEnabled: boolean }) {
         </div>
         <div className="mt-3 min-h-[2.5rem] flex items-center justify-between gap-3">
           <p className={`text-sm font-medium ${done ? "text-accent animate-fade-in" : "text-gray-500"}`}>
-            {done ? quote : `${progress} / ${questions.length} confirmed — complete all to get the green light.`}
+            {done ? quote : t("check.progress", { n: progress, total: questions.length })}
           </p>
           <button onClick={reset} className="btn-ghost text-xs px-3 py-1.5 shrink-0">
-            Reset
+            {t("check.reset")}
           </button>
         </div>
       </div>

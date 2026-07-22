@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { ASSET_PRESETS } from "@/lib/instruments";
+import { useI18n, assetPresetName, assetPointHint } from "@/lib/i18n";
 
 function num(v: string): number {
   const n = parseFloat(v.replace(",", "."));
@@ -18,6 +19,7 @@ function Stat({ label, value, accent }: { label: string; value: string; accent?:
 }
 
 function PositionSizeCalc() {
+  const { t, lang } = useI18n();
   const [asset, setAsset] = useState(ASSET_PRESETS[0].id);
   const [balance, setBalance] = useState("10000");
   const [risk, setRisk] = useState("1");
@@ -37,39 +39,40 @@ function PositionSizeCalc() {
   return (
     <div className="space-y-3">
       <div>
-        <label className="label">Asset type</label>
+        <label className="label">{t("calc.assetType")}</label>
         <select className="input" value={asset} onChange={(e) => setAsset(e.target.value)}>
           {ASSET_PRESETS.map((p) => (
             <option key={p.id} value={p.id}>
-              {p.name}
+              {assetPresetName(p.id, lang)}
             </option>
           ))}
         </select>
       </div>
       <div className="grid grid-cols-3 gap-2">
         <div>
-          <label className="label">Balance $</label>
+          <label className="label">{t("calc.balance")}</label>
           <input className="input" value={balance} onChange={(e) => setBalance(e.target.value)} inputMode="decimal" />
         </div>
         <div>
-          <label className="label">Risk %</label>
+          <label className="label">{t("calc.risk")}</label>
           <input className="input" value={risk} onChange={(e) => setRisk(e.target.value)} inputMode="decimal" />
         </div>
         <div>
-          <label className="label">Stop-loss</label>
+          <label className="label">{t("calc.stop")}</label>
           <input className="input" value={sl} onChange={(e) => setSl(e.target.value)} inputMode="decimal" />
         </div>
       </div>
-      <p className="text-[11px] text-gray-500">{preset.pointHint}</p>
+      <p className="text-[11px] text-gray-500">{assetPointHint(asset, lang)}</p>
       <div className="grid grid-cols-2 gap-2">
-        <Stat label="Position size (lots)" value={result ? result.lot.toFixed(2) : "—"} accent />
-        <Stat label="Risk amount" value={result ? `$${result.riskMoney.toFixed(2)}` : "—"} />
+        <Stat label={t("calc.posSize")} value={result ? result.lot.toFixed(2) : "—"} accent />
+        <Stat label={t("calc.riskAmount")} value={result ? `$${result.riskMoney.toFixed(2)}` : "—"} />
       </div>
     </div>
   );
 }
 
 function RiskRewardCalc() {
+  const { t } = useI18n();
   const [entry, setEntry] = useState("");
   const [stop, setStop] = useState("");
   const [target, setTarget] = useState("");
@@ -94,35 +97,36 @@ function RiskRewardCalc() {
     <div className="space-y-3">
       <div className="grid grid-cols-3 gap-2">
         <div>
-          <label className="label">Entry</label>
+          <label className="label">{t("calc.entry")}</label>
           <input className="input" value={entry} onChange={(e) => setEntry(e.target.value)} inputMode="decimal" placeholder="1.1000" />
         </div>
         <div>
-          <label className="label">Stop-loss</label>
+          <label className="label">{t("calc.stop")}</label>
           <input className="input" value={stop} onChange={(e) => setStop(e.target.value)} inputMode="decimal" placeholder="1.0950" />
         </div>
         <div>
-          <label className="label">Take-profit</label>
+          <label className="label">{t("calc.takeProfit")}</label>
           <input className="input" value={target} onChange={(e) => setTarget(e.target.value)} inputMode="decimal" placeholder="1.1150" />
         </div>
       </div>
       <div className="grid grid-cols-2 gap-2">
-        <Stat label="Risk : Reward" value={res ? `1 : ${res.rr.toFixed(2)}` : "—"} accent />
-        <Stat label="Breakeven win-rate" value={res ? `${(res.beWin * 100).toFixed(1)}%` : "—"} />
+        <Stat label={t("calc.rr")} value={res ? `1 : ${res.rr.toFixed(2)}` : "—"} accent />
+        <Stat label={t("calc.beWinrate")} value={res ? `${(res.beWin * 100).toFixed(1)}%` : "—"} />
       </div>
       {res && !res.dirValid && (
         <p className="text-xs text-down">
-          ⚠ Levels look inconsistent for a {res.isLong ? "long" : "short"} — check that SL and TP are on the right sides of entry.
+          {t("calc.rrDirWarn", { dir: res.isLong ? t("calc.dir.long") : t("calc.dir.short") })}
         </p>
       )}
       {res && res.rr < 1 && res.dirValid && (
-        <p className="text-xs text-warn">Reward is smaller than risk — needs a high win-rate to be viable.</p>
+        <p className="text-xs text-warn">{t("calc.rrLowWarn")}</p>
       )}
     </div>
   );
 }
 
 function CompoundCalc() {
+  const { t } = useI18n();
   const [start, setStart] = useState("10000");
   const [pct, setPct] = useState("2");
   const [periods, setPeriods] = useState("50");
@@ -141,48 +145,49 @@ function CompoundCalc() {
     <div className="space-y-3">
       <div className="grid grid-cols-3 gap-2">
         <div>
-          <label className="label">Start $</label>
+          <label className="label">{t("calc.start")}</label>
           <input className="input" value={start} onChange={(e) => setStart(e.target.value)} inputMode="decimal" />
         </div>
         <div>
-          <label className="label">Gain / trade %</label>
+          <label className="label">{t("calc.gainPerTrade")}</label>
           <input className="input" value={pct} onChange={(e) => setPct(e.target.value)} inputMode="decimal" />
         </div>
         <div>
-          <label className="label"># trades</label>
+          <label className="label">{t("calc.numTrades")}</label>
           <input className="input" value={periods} onChange={(e) => setPeriods(e.target.value)} inputMode="numeric" />
         </div>
       </div>
       <div className="grid grid-cols-2 gap-2">
-        <Stat label="Final balance" value={res ? `$${res.final.toLocaleString("en-US", { maximumFractionDigits: 0 })}` : "—"} accent />
-        <Stat label="Total profit" value={res ? `$${res.profit.toLocaleString("en-US", { maximumFractionDigits: 0 })}` : "—"} />
+        <Stat label={t("calc.finalBalance")} value={res ? `$${res.final.toLocaleString("en-US", { maximumFractionDigits: 0 })}` : "—"} accent />
+        <Stat label={t("calc.totalProfit")} value={res ? `$${res.profit.toLocaleString("en-US", { maximumFractionDigits: 0 })}` : "—"} />
       </div>
-      <p className="text-[11px] text-gray-500">Projection assumes a constant compounded return — real results vary.</p>
+      <p className="text-[11px] text-gray-500">{t("calc.compoundNote")}</p>
     </div>
   );
 }
 
 const TABS = [
-  { id: "size", label: "Position Size" },
-  { id: "rr", label: "Risk : Reward" },
-  { id: "compound", label: "Compounding" },
+  { id: "size", key: "calc.tab.size" },
+  { id: "rr", key: "calc.tab.rr" },
+  { id: "compound", key: "calc.tab.compound" },
 ] as const;
 
 export default function Calculators() {
+  const { t } = useI18n();
   const [tab, setTab] = useState<(typeof TABS)[number]["id"]>("size");
   return (
     <section className="card p-5">
-      <h2 className="text-sm font-semibold text-gray-200 tracking-wide uppercase mb-4">Calculators</h2>
+      <h2 className="text-sm font-semibold text-gray-200 tracking-wide uppercase mb-4">{t("calc.title")}</h2>
       <div className="flex gap-1 mb-4 bg-bg-soft/60 p-1 rounded-xl">
-        {TABS.map((t) => (
+        {TABS.map((tb) => (
           <button
-            key={t.id}
-            onClick={() => setTab(t.id)}
+            key={tb.id}
+            onClick={() => setTab(tb.id)}
             className={`flex-1 rounded-lg px-2 py-1.5 text-xs font-medium transition-colors ${
-              tab === t.id ? "bg-bg-hover text-gray-100" : "text-gray-500 hover:text-gray-300"
+              tab === tb.id ? "bg-bg-hover text-gray-100" : "text-gray-500 hover:text-gray-300"
             }`}
           >
-            {t.label}
+            {t(tb.key)}
           </button>
         ))}
       </div>

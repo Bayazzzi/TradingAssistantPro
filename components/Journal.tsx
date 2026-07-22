@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { useLocalStorage } from "@/lib/useLocalStorage";
+import { useI18n } from "@/lib/i18n";
 
 interface Trade {
   id: string;
@@ -26,6 +27,7 @@ function StatTile({ label, value, tone }: { label: string; value: string; tone?:
 const today = () => new Date().toISOString().slice(0, 10);
 
 export default function Journal() {
+  const { t } = useI18n();
   const [trades, setTrades] = useLocalStorage<Trade[]>("tap.journal", []);
   const [form, setForm] = useState({
     date: today(),
@@ -76,7 +78,7 @@ export default function Journal() {
   const remove = (id: string) => setTrades((prev) => prev.filter((t) => t.id !== id));
 
   const clearAll = () => {
-    if (confirm("Delete all journal entries? This cannot be undone.")) setTrades([]);
+    if (confirm(t("jrn.confirmClear"))) setTrades([]);
   };
 
   const money = (v: number) =>
@@ -85,10 +87,10 @@ export default function Journal() {
   return (
     <section className="card p-5">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-sm font-semibold text-gray-200 tracking-wide uppercase">Trade Journal</h2>
+        <h2 className="text-sm font-semibold text-gray-200 tracking-wide uppercase">{t("jrn.title")}</h2>
         {trades.length > 0 && (
           <button onClick={clearAll} className="btn-ghost text-xs px-2.5 py-1 text-down/80">
-            Clear all
+            {t("jrn.clearAll")}
           </button>
         )}
       </div>
@@ -96,20 +98,20 @@ export default function Journal() {
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
         <StatTile
-          label="Net P/L"
+          label={t("jrn.netPnl")}
           value={stats.n ? money(stats.totalPnl) : "—"}
           tone={stats.totalPnl > 0 ? "up" : stats.totalPnl < 0 ? "down" : "neutral"}
         />
-        <StatTile label="Win rate" value={stats.n ? `${stats.winRate.toFixed(0)}%` : "—"} />
+        <StatTile label={t("jrn.winRate")} value={stats.n ? `${stats.winRate.toFixed(0)}%` : "—"} />
         <StatTile
-          label="Profit factor"
+          label={t("jrn.profitFactor")}
           value={stats.n ? (stats.profitFactor === Infinity ? "∞" : stats.profitFactor.toFixed(2)) : "—"}
         />
-        <StatTile label="Avg R" value={stats.avgR !== null ? `${stats.avgR.toFixed(2)}R` : "—"} />
+        <StatTile label={t("jrn.avgR")} value={stats.avgR !== null ? `${stats.avgR.toFixed(2)}R` : "—"} />
       </div>
 
       {/* Equity curve */}
-      {stats.curve.length > 1 && <EquityCurve points={stats.curve} />}
+      {stats.curve.length > 1 && <EquityCurve points={stats.curve} label={t("jrn.equityCurve")} />}
 
       {/* Add form */}
       <div className="grid grid-cols-2 md:grid-cols-6 gap-2 mb-4 mt-4">
@@ -121,7 +123,7 @@ export default function Journal() {
         />
         <input
           className="input"
-          placeholder="Symbol"
+          placeholder={t("jrn.symbol")}
           value={form.symbol}
           onChange={(e) => setForm({ ...form, symbol: e.target.value })}
         />
@@ -130,30 +132,30 @@ export default function Journal() {
           value={form.direction}
           onChange={(e) => setForm({ ...form, direction: e.target.value as "Long" | "Short" })}
         >
-          <option>Long</option>
-          <option>Short</option>
+          <option value="Long">{t("jrn.long")}</option>
+          <option value="Short">{t("jrn.short")}</option>
         </select>
         <input
           className="input"
-          placeholder="P/L $"
+          placeholder={t("jrn.pnl")}
           inputMode="decimal"
           value={form.pnl}
           onChange={(e) => setForm({ ...form, pnl: e.target.value })}
         />
         <input
           className="input"
-          placeholder="R (opt)"
+          placeholder={t("jrn.rOpt")}
           inputMode="decimal"
           value={form.rr}
           onChange={(e) => setForm({ ...form, rr: e.target.value })}
         />
         <button onClick={add} className="btn-primary">
-          + Add
+          {t("jrn.add")}
         </button>
       </div>
       <input
         className="input mb-4"
-        placeholder="Notes (optional) — setup, mistake, lesson…"
+        placeholder={t("jrn.notes")}
         value={form.notes}
         onChange={(e) => setForm({ ...form, notes: e.target.value })}
         onKeyDown={(e) => e.key === "Enter" && add()}
@@ -161,30 +163,28 @@ export default function Journal() {
 
       {/* List */}
       {trades.length === 0 ? (
-        <p className="text-sm text-gray-500 text-center py-6">
-          No trades logged yet. Add your first trade above — stats and equity curve build automatically.
-        </p>
+        <p className="text-sm text-gray-500 text-center py-6">{t("jrn.empty")}</p>
       ) : (
         <div className="space-y-1.5 max-h-[300px] overflow-y-auto -mr-2 pr-2">
-          {trades.map((t) => (
+          {trades.map((tr) => (
             <div
-              key={t.id}
+              key={tr.id}
               className="flex items-center gap-3 rounded-xl border border-border bg-bg-soft/40 px-3 py-2 group"
             >
-              <span className="text-[11px] text-gray-600 font-mono w-16 shrink-0">{t.date.slice(5)}</span>
-              <span className="chip bg-white/5 text-gray-200 font-mono w-16 justify-center shrink-0">{t.symbol}</span>
-              <span className={`text-xs shrink-0 ${t.direction === "Long" ? "text-up" : "text-down"}`}>
-                {t.direction === "Long" ? "▲ Long" : "▼ Short"}
+              <span className="text-[11px] text-gray-600 font-mono w-16 shrink-0">{tr.date.slice(5)}</span>
+              <span className="chip bg-white/5 text-gray-200 font-mono w-16 justify-center shrink-0">{tr.symbol}</span>
+              <span className={`text-xs shrink-0 ${tr.direction === "Long" ? "text-up" : "text-down"}`}>
+                {tr.direction === "Long" ? `▲ ${t("jrn.long")}` : `▼ ${t("jrn.short")}`}
               </span>
-              <span className="text-xs text-gray-500 truncate flex-1">{t.notes}</span>
-              {t.rr !== null && <span className="text-xs font-mono text-gray-500 shrink-0">{t.rr.toFixed(1)}R</span>}
+              <span className="text-xs text-gray-500 truncate flex-1">{tr.notes}</span>
+              {tr.rr !== null && <span className="text-xs font-mono text-gray-500 shrink-0">{tr.rr.toFixed(1)}R</span>}
               <span
-                className={`font-mono text-sm shrink-0 w-24 text-right ${t.pnl >= 0 ? "text-up" : "text-down"}`}
+                className={`font-mono text-sm shrink-0 w-24 text-right ${tr.pnl >= 0 ? "text-up" : "text-down"}`}
               >
-                {money(t.pnl)}
+                {money(tr.pnl)}
               </span>
               <button
-                onClick={() => remove(t.id)}
+                onClick={() => remove(tr.id)}
                 className="text-gray-600 hover:text-down text-xs opacity-0 group-hover:opacity-100 transition-opacity shrink-0"
                 title="Delete"
               >
@@ -198,7 +198,7 @@ export default function Journal() {
   );
 }
 
-function EquityCurve({ points }: { points: number[] }) {
+function EquityCurve({ points, label }: { points: number[]; label: string }) {
   const w = 100;
   const h = 28;
   const min = Math.min(0, ...points);
@@ -215,7 +215,7 @@ function EquityCurve({ points }: { points: number[] }) {
   const positive = last >= 0;
   return (
     <div className="rounded-xl bg-bg-soft/60 border border-border p-3">
-      <div className="text-[11px] text-gray-500 mb-1">Equity curve</div>
+      <div className="text-[11px] text-gray-500 mb-1">{label}</div>
       <svg viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none" className="w-full h-16">
         <line x1="0" y1={h - ((0 - min) / range) * h} x2={w} y2={h - ((0 - min) / range) * h} stroke="#26344a" strokeWidth="0.3" strokeDasharray="1,1" />
         <path d={path} fill="none" stroke={positive ? "#26d07c" : "#ff5c6c"} strokeWidth="0.8" vectorEffect="non-scaling-stroke" />

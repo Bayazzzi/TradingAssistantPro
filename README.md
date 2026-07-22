@@ -1,76 +1,123 @@
 # Trading Assistant Pro
 
+[English](#english) · [Русский](#русский)
+
+![version](https://img.shields.io/badge/version-8.0-2cc985) ![Next.js](https://img.shields.io/badge/Next.js-14-black) ![License](https://img.shields.io/badge/license-MIT-blue)
+
+---
+
+## English
+
 A trader's cockpit in the browser — the web edition of the original Windows desktop
-app, rebuilt on **Next.js** and deployable to **Vercel**. Everything runs live, works
-on any device, and needs no installation.
+app, rebuilt on **Next.js** and deployable to **Vercel**. Everything runs live, works on
+any device, and needs no installation. Interface available in **Russian and English**
+(toggle in the header, default Russian).
 
-![v8 web edition](https://img.shields.io/badge/version-8.0-2cc985) ![Next.js](https://img.shields.io/badge/Next.js-14-black) ![License](https://img.shields.io/badge/license-MIT-blue)
-
-## Features
+### Features
 
 - **Trading Sessions** — live local clocks for Sydney, Tokyo, London and New York with
   open/closed/weekend status, countdown to the next boundary, a 24-hour UTC timeline and
   automatic detection of the high-liquidity **London × New York overlap**.
 - **Live Market Ticker** — scrolling quotes for FX majors, gold, silver, oil, BTC/ETH and
-  major indices, proxied server-side from Yahoo Finance (auto-refreshing).
-- **Economic Calendar** — this week's events with impact levels, currency, forecast and
-  previous, filterable by impact and today/week, sourced from the ForexFactory JSON feed.
-- **Calculators**
-  - *Position size* — lots from balance, risk % and stop-loss across FX, metals, crypto and indices.
-  - *Risk : Reward* — R:R ratio and the breakeven win-rate a setup needs, with sanity checks.
-  - *Compounding* — projected account growth over a number of trades.
-- **Pre-Trade Checklist** — discipline gate with scalping / intraday / swing presets and a
-  motivational nudge when every box is ticked. Your chosen style persists.
-- **Trade Journal** — log trades locally (P/L, direction, R multiple, notes) and get an
-  auto-computed net P/L, win rate, profit factor, average R and an equity curve. Stored in
-  your browser (localStorage) — nothing leaves your device.
+  major indices, proxied server-side from Yahoo Finance.
+- **Economic Calendar** — this week's events with impact levels, forecast and previous,
+  filterable by impact and today/week, from the ForexFactory JSON feed.
+- **Calculators** — position size, risk:reward (with breakeven win-rate) and compounding.
+- **Pre-Trade Checklist** — discipline gate with scalping / intraday / swing presets.
+- **Trade Journal** — log trades locally and get net P/L, win rate, profit factor, average
+  R and an equity curve. Stored in your browser — nothing leaves your device.
 - **Sound alerts** — cross-platform chimes (Web Audio API) for session opens and imminent
-  high-impact news. Toggle-able and remembered.
+  high-impact news.
 
-## Tech stack
+### Tech stack
 
-- Next.js 14 (App Router) · React 18 · TypeScript
-- Tailwind CSS
-- Serverless API routes proxy the market/calendar feeds (with in-memory caching to respect
-  upstream rate limits)
+Next.js 14 (App Router) · React 18 · TypeScript · Tailwind CSS. Serverless API routes proxy
+the market/calendar feeds with in-memory caching to respect upstream rate limits.
 
-## Getting started
+### Getting started
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open <http://localhost:3000>.
+Open <http://localhost:3000>. Production: `npm run build && npm start`.
 
-Production build:
+### Deploy to Vercel
 
-```bash
-npm run build
-npm start
-```
-
-## Deploy to Vercel
-
-The app is zero-config on Vercel. Either import the GitHub repo from the Vercel dashboard,
-or from the CLI:
+Zero-config. Import the GitHub repo from the Vercel dashboard, or from the CLI:
 
 ```bash
-npm i -g vercel
 vercel --prod
 ```
 
 No environment variables are required — the data feeds are public.
 
-## Notes & disclaimer
+### Disclaimer
 
-- Market and calendar data come from public feeds and may be delayed or occasionally
-  unavailable; the UI degrades gracefully when a feed is down.
-- This tool is for **informational and educational purposes only** and is **not financial
-  advice**. Always do your own research and manage your own risk.
+Market and calendar data come from public feeds and may be delayed or occasionally
+unavailable; the UI degrades gracefully. This tool is for **informational and educational
+purposes only** and is **not financial advice**.
 
-## Legacy desktop app
+The original Windows desktop version (customtkinter) is preserved under
+[`legacy/trd.py`](legacy/trd.py).
 
-The original Windows desktop version (customtkinter) lives in [`legacy/trd.py`](legacy/trd.py).
-The web edition supersedes it and adds the calendar filters, calculators, journal and
-cross-platform sound.
+---
+
+## Русский
+
+Кокпит трейдера прямо в браузере — веб-версия оригинального Windows-приложения,
+переписанная на **Next.js** и разворачиваемая на **Vercel**. Всё работает вживую, на любом
+устройстве и без установки. Интерфейс на **русском и английском** (переключатель в шапке,
+по умолчанию русский).
+
+### Возможности
+
+- **Торговые сессии** — живые локальные часы Сиднея, Токио, Лондона и Нью-Йорка со
+  статусами открыто/закрыто/выходные, таймером до следующего события, 24-часовым
+  UTC-таймлайном и авто-детектом окна высокой ликвидности **Лондон × Нью-Йорк**.
+- **Бегущая строка котировок** — FX-мажоры, золото, серебро, нефть, BTC/ETH и основные
+  индексы через серверный прокси Yahoo Finance.
+- **Экономический календарь** — события недели с уровнем важности, прогнозом и предыдущим
+  значением, фильтры по важности и сегодня/неделя (фид ForexFactory).
+- **Калькуляторы** — размер позиции, риск:прибыль (с безубыточным винрейтом) и сложный
+  процент.
+- **Чек-лист перед сделкой** — дисциплина с пресетами скальпинг / интрадей / свинг.
+- **Журнал сделок** — веди сделки локально и получай чистый P/L, винрейт, профит-фактор,
+  средний R и кривую эквити. Хранится в браузере — данные не покидают устройство.
+- **Звуковые алерты** — кроссплатформенные сигналы (Web Audio API) на открытие сессий и
+  приближение важных новостей.
+
+### Технологии
+
+Next.js 14 (App Router) · React 18 · TypeScript · Tailwind CSS. Serverless-роуты проксируют
+рыночный и календарный фиды с кэшированием в памяти, чтобы уважать лимиты источников.
+
+### Запуск
+
+```bash
+npm install
+npm run dev
+```
+
+Открой <http://localhost:3000>. Прод: `npm run build && npm start`.
+
+### Деплой на Vercel
+
+Без конфигурации. Импортируй репозиторий в дашборде Vercel или через CLI:
+
+```bash
+vercel --prod
+```
+
+Переменные окружения не нужны — фиды публичные.
+
+### Дисклеймер
+
+Рыночные и календарные данные берутся из публичных источников и могут задерживаться или
+быть временно недоступны; интерфейс корректно это переживает. Инструмент носит
+**исключительно информационный и образовательный характер** и **не является финансовой
+рекомендацией**.
+
+Оригинальная десктоп-версия (customtkinter) сохранена в
+[`legacy/trd.py`](legacy/trd.py).

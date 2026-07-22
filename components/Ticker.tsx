@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { Quote } from "@/lib/instruments";
+import { useI18n } from "@/lib/i18n";
 
 function QuoteItem({ q }: { q: Quote }) {
   const up = q.changePct >= 0;
@@ -22,6 +23,7 @@ function QuoteItem({ q }: { q: Quote }) {
 }
 
 export default function Ticker() {
+  const { t } = useI18n();
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [status, setStatus] = useState<"loading" | "live" | "error">("loading");
 
@@ -53,7 +55,7 @@ export default function Ticker() {
   if (status === "loading") {
     return (
       <div className="h-9 flex items-center px-4 bg-black/60 border-b border-border text-sm text-gray-500">
-        <span className="animate-pulse">Loading market data…</span>
+        <span className="animate-pulse">{t("ticker.loading")}</span>
       </div>
     );
   }
@@ -61,7 +63,7 @@ export default function Ticker() {
   if (status === "error" || quotes.length === 0) {
     return (
       <div className="h-9 flex items-center px-4 bg-black/60 border-b border-border text-sm text-gray-500">
-        Market feed unavailable — retrying…
+        {t("ticker.error")}
       </div>
     );
   }
