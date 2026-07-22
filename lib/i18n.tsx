@@ -323,6 +323,85 @@ const DICT: Record<string, Entry> = {
     en: "Convert between 19 currencies at fresh cross rates; the pair's rate is shown under the result.",
   },
 
+  // Pivot / Fibonacci calculator
+  "calc.tab.pivots": { ru: "Пивоты", en: "Pivots" },
+  "piv.instrument": { ru: "Инструмент", en: "Instrument" },
+  "piv.basedOn": { ru: "По данным за", en: "Based on" },
+  "piv.loading": { ru: "Расчёт уровней…", en: "Computing levels…" },
+  "piv.error": { ru: "Уровни недоступны.", en: "Levels unavailable." },
+  "piv.current": { ru: "Текущая цена", en: "Current price" },
+  "piv.classic": { ru: "Классические пивоты", en: "Classic Pivots" },
+  "piv.fib": { ru: "Фибоначчи", en: "Fibonacci" },
+  "hint.calc.4": {
+    ru: "Пивоты — уровни поддержки/сопротивления от вчерашнего диапазона (H/L/C). Подсвечена ближайшая к цене зона.",
+    en: "Pivots — support/resistance levels from yesterday's range (H/L/C). The zone nearest to price is highlighted.",
+  },
+
+  // Trend scanner
+  "trend.title": { ru: "Скан тренда по таймфреймам", en: "Multi-Timeframe Trend Scanner" },
+  "trend.subtitle": {
+    ru: "Направление тренда (SMA20) на D1/H4/H1 — где сходятся все три, там сильный сигнал",
+    en: "Trend direction (SMA20) on D1/H4/H1 — where all three agree, that's a strong signal",
+  },
+  "trend.loading": { ru: "Сканирование трендов…", en: "Scanning trends…" },
+  "trend.error": { ru: "Данные скана недоступны.", en: "Trend scan data unavailable." },
+  "trend.instrument": { ru: "Инструмент", en: "Instrument" },
+  "trend.confluence": { ru: "Confluence", en: "Confluence" },
+  "trend.alignedShort": { ru: "Совпадение", en: "Aligned" },
+  "trend.up": { ru: "Восходящий", en: "Uptrend" },
+  "trend.down": { ru: "Нисходящий", en: "Downtrend" },
+  "trend.flat": { ru: "Флэт", en: "Flat" },
+  "hint.trend.1": {
+    ru: "Тренд определяется по цене относительно SMA20 и наклону самой SMA — шум отфильтрован.",
+    en: "Trend is price vs SMA20 plus the SMA's own slope — noise is filtered out.",
+  },
+  "hint.trend.2": {
+    ru: "«Совпадение» — все три таймфрейма смотрят в одну сторону: классический сетап для входа по тренду.",
+    en: "\"Aligned\" — all three timeframes point the same way: a classic trend-following setup.",
+  },
+
+  // Timing heatmap
+  "timing.title": { ru: "Лучшее время для торговли", en: "Best Time to Trade" },
+  "timing.subtitle": {
+    ru: "Средняя волатильность по часам (UTC) и дням недели за последние ~60 дней",
+    en: "Average volatility by UTC hour and weekday over the last ~60 days",
+  },
+  "timing.loading": { ru: "Расчёт волатильности…", en: "Computing volatility…" },
+  "timing.error": { ru: "Данные недоступны.", en: "Data unavailable." },
+  "timing.axisNote": { ru: "Строки — часы UTC, столбцы — дни недели", en: "Rows are UTC hours, columns are weekdays" },
+  "hint.timing.1": {
+    ru: "Ярче цвет — исторически более волатильный час для этого инструмента.",
+    en: "Brighter cell = historically more volatile hour for this instrument.",
+  },
+  "hint.timing.2": {
+    ru: "Используй, чтобы выбрать окно для скальпинга или избежать тихих часов.",
+    en: "Use it to pick a scalping window or avoid the quiet hours.",
+  },
+
+  // Risk panel
+  "risk.title": { ru: "Панель текущего риска", en: "Open Risk Panel" },
+  "risk.subtitle": {
+    ru: "Твои открытые позиции сейчас — суммарный риск и предупреждение о коррелирующих сделках",
+    en: "Your currently open positions — total risk and correlated-exposure warnings",
+  },
+  "risk.totalRisk": { ru: "Суммарный риск", en: "Total risk" },
+  "risk.pctOfBalance": { ru: "% от баланса", en: "% of balance" },
+  "risk.balance": { ru: "Баланс $", en: "Balance $" },
+  "risk.riskAmount": { ru: "Риск $", en: "Risk $" },
+  "risk.correlated": { ru: "высокая корреляция — риск удваивается", en: "high correlation — risk may be doubled" },
+  "risk.empty": {
+    ru: "Нет открытых позиций. Добавь их выше, чтобы видеть суммарный риск и предупреждения о корреляции.",
+    en: "No open positions. Add them above to see total risk and correlation warnings.",
+  },
+  "hint.risk.1": {
+    ru: "Вноси риск $ каждой открытой позиции (из калькулятора размера позиции) — здесь считается сумма.",
+    en: "Enter the $ risk of each open position (from the position-size calculator) — this sums it up.",
+  },
+  "hint.risk.2": {
+    ru: "Если две позиции сильно коррелируют, реальный риск выше, чем кажется по отдельности.",
+    en: "If two positions are strongly correlated, real risk is higher than each looks alone.",
+  },
+
   // Footer
   "footer.disclaimer": {
     ru: "Trading Assistant Pro · только в информационных целях, не является финансовой рекомендацией.",

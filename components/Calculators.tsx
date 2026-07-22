@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { ASSET_PRESETS } from "@/lib/instruments";
 import { useI18n, assetPresetName, assetPointHint } from "@/lib/i18n";
 import InfoHint from "@/components/InfoHint";
+import PivotCalculator from "@/components/PivotCalculator";
 
 function num(v: string): number {
   const n = parseFloat(v.replace(",", "."));
@@ -171,6 +172,7 @@ const TABS = [
   { id: "size", key: "calc.tab.size" },
   { id: "rr", key: "calc.tab.rr" },
   { id: "compound", key: "calc.tab.compound" },
+  { id: "pivots", key: "calc.tab.pivots" },
 ] as const;
 
 export default function Calculators() {
@@ -195,7 +197,8 @@ export default function Calculators() {
       {tab === "size" && <PositionSizeCalc />}
       {tab === "rr" && <RiskRewardCalc />}
       {tab === "compound" && <CompoundCalc />}
-      <InfoHint items={[t("hint.calc.1"), t("hint.calc.2"), t("hint.calc.3")]} />
+      {tab === "pivots" && <PivotCalculator />}
+      <InfoHint items={[t("hint.calc.1"), t("hint.calc.2"), t("hint.calc.3"), t("hint.calc.4")]} />
     </section>
   );
 }

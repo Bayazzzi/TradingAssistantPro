@@ -15,6 +15,9 @@ import Journal from "@/components/Journal";
 import CurrencyConverter from "@/components/CurrencyConverter";
 import CorrelationMatrix from "@/components/CorrelationMatrix";
 import CotPositioning from "@/components/CotPositioning";
+import TrendScanner from "@/components/TrendScanner";
+import TimingHeatmap from "@/components/TimingHeatmap";
+import RiskPanel from "@/components/RiskPanel";
 import { useLocalStorage } from "@/lib/useLocalStorage";
 import { unlockAudio } from "@/lib/sound";
 import { I18nProvider, useI18n } from "@/lib/i18n";
@@ -114,7 +117,11 @@ function Dashboard() {
 
         {tab === "analysis" && (
           <>
-            <CorrelationMatrix />
+            <TrendScanner />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-start">
+              <CorrelationMatrix />
+              <TimingHeatmap />
+            </div>
             <CotPositioning />
           </>
         )}
@@ -122,6 +129,7 @@ function Dashboard() {
         {tab === "journal" && (
           <>
             <Checklist soundEnabled={sessionSound} />
+            <RiskPanel />
             <Journal />
           </>
         )}

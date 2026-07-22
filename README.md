@@ -44,6 +44,14 @@ this?" explainer.
 - **Currency Converter** — convert between 19 major/EM currencies using live rates.
 - **Pair Correlation** — a heatmap of 3-month daily-return correlation across FX majors,
   gold, oil, BTC and the S&P 500, so you can spot hidden overlapping risk.
+- **Multi-Timeframe Trend Scanner** — D1/H4/H1 trend bias for every instrument at a
+  glance, with a "confluence" flag when all three agree.
+- **Best Time to Trade** — a heatmap of average volatility by UTC hour and weekday for a
+  chosen instrument, from ~60 days of hourly bars.
+- **Pivot Points & Fibonacci** — classic and Fibonacci pivot levels from the previous
+  day's range, with the zone nearest to the live price highlighted.
+- **Open Risk Panel** — track your currently open positions, see total $ risk and % of
+  balance, and get warned when two open positions are highly correlated.
 - **Light / dark theme** — toggle in the header, persisted, no flash on reload.
 - **Sound alerts** — cross-platform chimes (Web Audio API) for session opens and imminent
   high-impact news.
@@ -124,6 +132,14 @@ The original Windows desktop version (customtkinter) is preserved under
   живым курсам.
 - **Корреляция пар** — тепловая карта корреляции дневной доходности за 3 месяца по FX-мажорам,
   золоту, нефти, BTC и S&P 500 — помогает увидеть скрытое пересечение риска.
+- **Скан тренда по таймфреймам** — направление тренда D1/H4/H1 по всем инструментам одним
+  взглядом, с флагом «совпадение», когда все три сходятся.
+- **Лучшее время для торговли** — тепловая карта средней волатильности по часам (UTC) и
+  дням недели для выбранного инструмента, на основе ~60 дней часовых данных.
+- **Пивот-точки и Фибоначчи** — классические и Фибоначчи-уровни от диапазона предыдущего
+  дня, с подсветкой зоны, ближайшей к текущей цене.
+- **Панель текущего риска** — отслеживай открытые позиции, видь суммарный риск в $ и % от
+  баланса, получай предупреждение при высокой корреляции между открытыми сделками.
 - **Светлая/тёмная тема** — переключатель в шапке, сохраняется, без мигания при перезагрузке.
 - **Звуковые алерты** — кроссплатформенные сигналы (Web Audio API) на открытие сессий и
   приближение важных новостей.
