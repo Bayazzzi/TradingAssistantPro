@@ -23,6 +23,7 @@ import { unlockAudio } from "@/lib/sound";
 import { I18nProvider, useI18n } from "@/lib/i18n";
 import { ThemeProvider } from "@/lib/theme";
 import { trackTabView } from "@/lib/analytics";
+import { WHATSAPP_URL, TELEGRAM_URL } from "@/lib/contact";
 
 export default function Home() {
   return (
@@ -147,6 +148,15 @@ function Dashboard() {
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-fg-subtle">
           <span>{t("footer.disclaimer")}</span>
           <span className="font-mono">{t("footer.version")}</span>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 mt-3 flex flex-wrap items-center justify-center sm:justify-start gap-2 text-xs text-fg-faint">
+          <span>{t("footer.contact")}</span>
+          <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn-ghost !px-3 !py-1.5 !text-xs">
+            💬 WhatsApp
+          </a>
+          <a href={TELEGRAM_URL} target="_blank" rel="noopener noreferrer" className="btn-ghost !px-3 !py-1.5 !text-xs">
+            ✈️ Telegram
+          </a>
         </div>
       </footer>
     </div>
