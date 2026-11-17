@@ -407,6 +407,7 @@ const DICT: Record<string, Entry> = {
     ru: "Trading Assistant Pro · только в информационных целях, не является финансовой рекомендацией.",
     en: "Trading Assistant Pro · for informational purposes only, not financial advice.",
   },
+  "footer.contact": { ru: "Связаться с разработчиком:", en: "Contact the developer:" },
   "footer.version": { ru: "v8.0 · веб-версия", en: "v8.0 · web edition" },
 };
 
